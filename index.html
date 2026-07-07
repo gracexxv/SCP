@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP-████ - Аллан Блэйк | Фонд SCP - Зона 03</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap');
+                .clearance-banner {
+            background: linear-gradient(90deg, var(--scp-red-dark), #660000, var(--scp-red-dark));
+            background-size: 200% 100%;
+            animation: gradient-shift 3s ease infinite;
+            padding: 12px;
+            text-align: center;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border: 1px solid var(--scp-red);
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .terminal-container {
+            background: #0d0d0d;
+            border: 1px solid var(--scp-border);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: var(--scp-dark);
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--scp-border);
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .terminal-dot.red { background: var(--scp-red); }
+        .terminal-dot.yellow { background: var(--scp-yellow); }
+        .terminal-dot.green { background: var(--scp-green); }
+
+        .terminal-title {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            color: var(--scp-muted);
+            margin-left: 10px;
+            letter-spacing: 1px;
+        }
+
+        .terminal-body {
+            padding: 15px 20px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .typewriter-line {
+            opacity: 0;
+            animation: typewriter-reveal 0.1s forwards;
+        }
+
+        .typewriter-line[data-delay="0"] { animation-delay: 0s; }
+        .typewriter-line[data-delay="400"] { animation-delay: 0.4s; }
+        .typewriter-line[data-delay="800"] { animation-delay: 0.8s; }
+        .typewriter-line[data-delay="1600"] { animation-delay: 1.6s; }
+
+        @keyframes typewriter-reveal {
+            to { opacity: 1; }
+        }
+
+        .origin-timeline {
+            position: relative;
+            margin: 30px 0;
+            padding-left: 30px;
+        }
+
+        .origin-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--scp-red-dark), var(--scp-euclid), var(--scp-blue));
+        }
+
+        .timeline-node {
+            position: relative;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slide-in 0.6s ease forwards;
+        }
+
+        .timeline-node:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-node:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-node:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-node:nth-child(4) { animation-delay: 0.8s; }
+        .timeline-node:nth-child(5) { animation-delay: 1.0s; }
+        .timeline-node:nth-child(6) { animation-delay: 1.2s; }
+
+        @keyframes slide-in {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--scp-dark);
+            border: 2px solid var(--scp-euclid);
+            border-radius: 50%;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .timeline-marker.pulse {
+            border-color: var(--scp-red);
+            animation: marker-pulse 2s ease infinite;
+        }
+
+        @keyframes marker-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(192, 57, 43, 0); }
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--scp-border);
+            border-left: 3px solid var(--scp-euclid);
+            padding: 18px 22px;
+        }
+
+        .timeline-year {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            color: var(--scp-euclid);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .timeline-event {
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .timeline-event:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-quote {
+            margin: 15px 0;
+        }
+
+        .timeline-quote .quote-block {
+            margin: 0;
+            background: rgba(192, 57, 43, 0.05);
+            border-left-color: var(--scp-red-dark);
+        }
+
+        :root {
+            --scp-black: #1a1a1a;
+            --scp-dark: #2d2d2d;
+            --scp-darker: #1e1e1e;
+            --scp-border: #404040;
+            --scp-text: #d4d4d4;
+            --scp-muted: #888888;
+            --scp-red: #c0392b;
+            --scp-red-dark: #8b0000;
+            --scp-green: #27ae60;
+            --scp-yellow: #f39c12;
+            --scp-blue: #3498db;
+            --scp-euclid: #e67e22;
+            --scp-safe: #2ecc71;
+            --scp-keter: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PT Serif', Georgia, serif;
+            background-color: var(--scp-black);
+            color: var(--scp-text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .scp-header {
+            background: linear-gradient(180deg, #0d0d0d 0%, var(--scp-black) 100%);
+            border-bottom: 3px solid var(--scp-red-dark);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scp-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--scp-red), transparent);
+            animation: scanline 4s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .scp-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .scp-logo-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--scp-red-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+            line-height: 1.2;
+            border: 2px solid var(--scp-red);
+            box-shadow: 0 0 15px rgba(192, 57, 43, 0.3);
+        }
+        
+        .scp-logo-text h1 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .scp-logo-text .subtitle {
+            font-size: 12px;
+            color: var(--scp-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        
+        .scp-nav {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .scp-nav a {
+            color: var(--scp-muted);
+            text-decoration: none;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .scp-nav a:hover {
+            color: var(--scp-red);
+        }
+        
+        .scp-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--scp-red);
+            transition: width 0.3s;
+        }
+        
+        .scp-nav a:hover::after {
+            width: 100%;
+        }
+        
+        .security-banner {
+            background: repeating-linear-gradient(
+                45deg,
+                var(--scp-red-dark),
+                var(--scp-red-dark) 10px,
+                #660000 10px,
+                #660000 20px
+            );
+            padding: 12px;
+            text-align: center;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--scp-red);
+        }
+        
+        .security-banner .blink {
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        .object-header {
+            background: var(--scp-darker);
+            border: 1px solid var(--scp-border);
+            border-left: 5px solid var(--scp-euclid);
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .object-header::before {
+            content: 'CLASS: EUCLID';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: var(--scp-euclid);
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 6px 15px;
+            letter-spacing: 2px;
+        }
+        
+        .object-number {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+        }
+        
+        .object-name {
+            font-size: 18px;
+            color: var(--scp-muted);
+            font-style: italic;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .info-box {
+            background: var(--scp-darker);
+            border: 1px solid var(--scp-border);
+            padding: 20px;
+            position: relative;
+        }
+        
+        .info-box .label {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--scp-muted);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-box .label::before {
+            content: '>';
+            color: var(--scp-red);
+        }
+        
+        .info-box .value {
+            font-size: 15px;
+            color: var(--scp-text);
+        }
+        
+        .info-box .value.highlight {
+            color: var(--scp-euclid);
+            font-weight: 700;
+        }
+        
+        .section {
+            background: var(--scp-darker);
+            border: 1px solid var(--scp-border);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: var(--scp-dark);
+            padding: 15px 25px;
+            border-bottom: 1px solid var(--scp-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .section-header:hover {
+            background: #363636;
+        }
+        
+        .section-header .icon {
+            width: 28px;
+            height: 28px;
+            background: var(--scp-red-dark);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        
+        .section-header h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .section-header .toggle {
+            margin-left: auto;
+            font-size: 18px;
+            color: var(--scp-muted);
+            transition: transform 0.3s;
+        }
+        
+        .section-header.collapsed .toggle {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 25px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .section-body.collapsed {
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-body p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .redacted {
+            background: #000;
+            color: #000;
+            padding: 0 4px;
+            border-radius: 2px;
+            cursor: help;
+            transition: background 0.2s;
+        }
+        
+        .redacted:hover {
+            background: var(--scp-red-dark);
+            color: #fff;
+        }
+        
+        .data-expunged {
+            background: repeating-linear-gradient(
+                90deg,
+                #000,
+                #000 5px,
+                #1a1a1a 5px,
+                #1a1a1a 10px
+            );
+            color: var(--scp-muted);
+            padding: 2px 8px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(192, 57, 43, 0.1), rgba(139, 0, 0, 0.1));
+            border: 1px solid var(--scp-red-dark);
+            border-left: 4px solid var(--scp-red);
+            padding: 18px 22px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .warning-box::before {
+            content: '!';
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: var(--scp-red-dark);
+            color: #fff;
+            font-size: 14px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+        }
+        
+        .warning-box strong {
+            color: var(--scp-red);
+            font-family: 'Roboto Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+        }
+        
+        .addendum {
+            background: rgba(52, 152, 219, 0.05);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-left: 4px solid var(--scp-blue);
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+        
+        .addendum-title {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            color: var(--scp-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .addendum-title::before {
+            content: '*';
+        }
+        
+        .quote-block {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--scp-muted);
+            padding: 18px 25px;
+            margin: 20px 0;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .quote-block::before {
+            content: '"';
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 40px;
+            color: var(--scp-border);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .quote-author {
+            margin-top: 12px;
+            font-style: normal;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            color: var(--scp-muted);
+        }
+        
+        .quote-author::before {
+            content: '- ';
+        }
+        
+        .incident-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        .incident-table th {
+            background: var(--scp-dark);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--scp-muted);
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 2px solid var(--scp-border);
+        }
+        
+        .incident-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--scp-border);
+            vertical-align: top;
+        }
+        
+        .incident-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .incident-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            margin-right: 5px;
+        }
+        
+        .tag-critical { background: rgba(231, 76, 60, 0.2); color: var(--scp-keter); border: 1px solid var(--scp-keter); }
+        .tag-major { background: rgba(230, 126, 34, 0.2); color: var(--scp-euclid); border: 1px solid var(--scp-euclid); }
+        .tag-minor { background: rgba(46, 204, 113, 0.2); color: var(--scp-safe); border: 1px solid var(--scp-safe); }
+        
+        .scp-footer {
+            background: var(--scp-darker);
+            border-top: 1px solid var(--scp-border);
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .scp-footer .footer-line {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            color: var(--scp-muted);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .scp-footer .footer-classified {
+            color: var(--scp-red);
+            font-weight: 500;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--scp-border);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--scp-black);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--scp-border);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scp-muted);
+        }
+        
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .scp-nav {
+                justify-content: center;
+            }
+            
+            .object-number {
+                font-size: 24px;
+            }
+            
+            .main-container {
+                padding: 15px;
+            }
+        }
+        
+        .terminal-line {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            color: var(--scp-green);
+            margin: 5px 0;
+        }
+        
+        .terminal-line .prompt {
+            color: var(--scp-red);
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--scp-green);
+            animation: cursor-blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+        
+        @keyframes cursor-blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="security-banner">
+        &nbsp;&nbsp;|&nbsp;&nbsp; ЗОНА 03 - USAKUK-Site-03 &nbsp;&nbsp;|&nbsp;&nbsp;
+    </div>
+
+    <header class="scp-header">
+        <div class="header-inner">
+            <div class="scp-logo">
+                <div class="scp-logo-text">
+                    <h1>Фонд SCP</h1>
+                    <div class="subtitle">Secure. Contain. Protect.</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <div class="object-header">
+            <div class="object-number">SCP-████</div>
+            <div class="object-name">"Аллан Блэйк - Ассистент медицинской службы Зоны 03"</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="label">Класс объекта</div>
+                <div class="value highlight">Евклид</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Местоположение</div>
+                <div class="value">Сектор 03-Чарли</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Должность</div>
+                <div class="value">Ассистент медицинской службы, парамедик</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Непосредственный руководитель</div>
+                <div class="value">Д-р Алекс Медицинов, заместитель директора по медицине (МС)</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Уровень допуска</div>
+                <div class="value">1</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Статус содержания</div>
+                <div class="value highlight">Совместное функционирование</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">01</div>
+                <h2>Особые условия содержания</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p>SCP-████ (далее - "субъект") содержится в рамках программы совместного функционирования с Фондом SCP. Субъект проживает в жилом комплексе сектора <span class="data-expunged">03-БРАВО</span>, район "Браво-2", в изолированной квартире.</p>
+                
+                <p>SCP-████ обязан носить стандартизированный браслет мониторинга аномальной активности и ежедневно проходить медицинский осмотр в <span class="data-expunged">Медицинском центре Зоны 03</span>. Кровь субъекта должна сдаваться на анализ каждые 72 часа. Образцы хранятся в изолированной секции холодильника Медицинского центра при температуре -80 C.</p>
+                
+                <div class="warning-box">
+                    <strong>Важное предупреждение:</strong> персоналу запрещено принимать любые биологические жидкости или ткани SCP-████ без прямого разрешения д-ра Алекса Медицинова и уведомления заместителя директора по безопасности (агент Энтони Фрейзер). Нарушение данного протокола влечет немедленное отстранение от должности.
+                </div>
+                
+                <p>SCP-████ допущен к выполнению служебных обязанностей в <strong>Исследовательском блоке "03-Чарли"</strong> при соблюдении следующих условий:</p>
+                
+                <p>- субъект не должен проводить хирургические операции без присутствия не менее двух сертифицированных хирургов;<br>
+                - любые изменения в физиологическом состоянии SCP-████ должны быть немедленно задокументированы и переданы д-ру Алексу Медицинову;<br>
+                - субъект обязан сообщать о любых соматических ощущениях, выходящих за рамки нормы, в течение 15 минут.</p>
+            </div>
+        </div>
+
+       <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+        <div class="icon">02</div>
+        <h2>Описание</h2>   
+        <span class="toggle">v</span>
+    </div>
+    <div class="section-body">
+        <p>SCP-████ - это гуманоидный субъект мужского пола, приблизительно 29 лет (биологический возраст подтвержден генетическим анализом), рост 176 см, вес 68 кг. Субъект имеет необычную внешность, сочетающую черты, нехарактерные для его возраста и этнической принадлежности.</p>
+        
+        <p><strong>Внешние особенности:</strong></p>
+        
+        <p>- <strong>глаза:</strong> серо-голубого цвета с выраженной гетерохромией - левый зрачок имеет приглушенный золотистый оттенок, который усиливается при активации аномалии. При регенерации чужеродных тканей оба зрачка расширяются несимметрично, а склеры приобретают легкий зеленоватый оттенок, сохраняющийся 10-15 минут после контакта;<br>
+        - <strong>кожа:</strong> бледная, почти восковая текстура. При дневном свете на предплечьях и шее видны едва различимые узоры, напоминающие капиллярную сеть, но с геометрически правильным строением. Узоры становятся заметно ярче при повышенной физической нагрузке или стрессе;<br>
+        - <strong>волосы:</strong> темно-русые с проседью у висков, несмотря на возраст. Отдельные пряди при прямом солнечном свете отбрасывают слабое фосфоресцирование голубоватого спектра, зафиксированное только при съемке в инфракрасном диапазоне;<br>
+        - <strong>руки:</strong> ладони и кончики пальцев постоянно холодные (28-30 C), независимо от окружающей температуры. На подушечках пальцев отсутствуют привычные дерматоглифические узоры - вместо них наблюдается сплошная микрорельефная сетка, напоминающая структуру листовой вены;<br>
+        - <strong>шрамы:</strong> на левом боку, под ребрами, присутствует вытянутое образование размером 8x3 см, напоминающее зажившую ожоговую рану. Субъект не помнит его происхождение. При УЗИ под образованием обнаружена плотная ткань неустановленного происхождения, не совпадающая ни с одним известным типом человеческой ткани.</p>
+        
+        <p><strong>Кристаллические наросты (SCP-████-1):</strong></p>
+        
+        <p>В ходе наблюдений выявлено, что субъект не подвержен естественному старению в привычном понимании. Вместо этого каждый акт регенерации чужеродных тканей вызывает образование твердых кристаллических наростов на теле SCP-████. На текущий момент наросты локализованы в следующих зонах:</p>
+        
+        <p>- <strong>правое предплечье:</strong> три нароста диаметром 0,5-1,2 см, расположенные линейно от локтевого сгиба к запястью. Кристаллы полупрозрачные, с легким голубоватым оттенком, напоминают застывший лед. При пальпации теплые на ощупь, несмотря на общую холодность конечностей субъекта. Под микроскопом видна слоистая структура, аналогичная дендритным кристаллам, но с биологическим матриксом между слоями;<br>
+        - <strong>левая лопатка:</strong> один крупный нарост размером 2,8x1,9 см, имеющий форму неправильного многогранника. Поверхность гладкая, зеркально отражает свет. При контакте с водой кристалл начинает слабо светиться холодным белым светом, интенсивность которого коррелирует с временем, прошедшим с последнего акта регенерации;<br>
+        - <strong>правая ключица:</strong> кластер из пяти мелких наростов (0,3-0,7 см), сросшихся основанием в форме полумесяца. Цвет кристаллов - мутно-белый с прожилками темно-серого. При рентгенографии внутри наростов видны полые каналы, заполненные жидкостью, идентичной по составу цереброспинальной жидкости человека;<br>
+        - <strong>подбородок:</strong> один нарост диаметром 0,4 см, почти полностью скрытый под кожей. Виден как небольшое выпуклое уплотнение. Субъект испытывает легкий дискомфорт при надавливании. Кристалл имеет янтарно-желтый цвет и фрактальную структуру при изучении под электронным микроскопом.</p>
+        
+        <p>Гистологический анализ образцов SCP-████-1 показал, что кристаллы состоят из гибридной органо-минеральной матрицы: 67% - неидентифицированный кальциево-фосфорный соединение, 23% - белковые структуры, сходные с коллагеном типа IV, 10% - органические соединения неустановленного происхождения. Кристаллы не поддаются механическому удалению без повреждения окружающих тканей и демонстрируют способность к медленному росту (приблизительно 0,1 мм в месяц).</p>
+        
+        <div class="warning-box">
+            <strong>Прогноз:</strong> при текущей скорости образования наростов и их роста кристаллические образования покроют приблизительно 15% поверхности тела SCP-████ к <span class="data-expunged">████</span> году. Долгосрочные последствия данного процесса неизвестны. Рекомендуется ежемесячный мониторинг размеров и локализации SCP-████-1.
+        </div>
+        
+        <p>Субъект двигается медленно, с характерной плавностью, напоминающей подводное плавание. При длительном наблюдении (более 3 минут непрерывного зрительного контакта) у наблюдателей возникает легкое головокружение и ощущение, что кожа SCP-████ слегка пульсирует в такт собственному сердцебиению наблюдателя. Данный эффект не поддается физическому объяснению и классифицирован как когнитивный побочный эффект сотрудника.</p>
+        
+        <p><strong>Основное аномальное свойство SCP-████</strong> заключается в способности к <span style="color: var(--scp-euclid); font-weight: 700;">биологической регенерации чужеродных тканей</span> через прямой физический контакт. При соприкосновении с поврежденными тканями другого организма (человека или животного) клетки SCP-████ начинают выделять неидентифицированный ферментный комплекс (временное обозначение: <span class="data-expunged">FC-01</span>), который стимулирует ускоренную регенерацию поврежденных тканей с коэффициентом ускорения от 8x до 47x по сравнению с естественной регенерацией.</p>
+        
+        <p>Проявления аномалии включают:</p>
+        
+        <p>- <strong>ускоренное заживление ран:</strong> поверхностные порезы заживают за 15-30 секунд, глубокие тканевые повреждения - за 2-5 минут;<br>
+        - <strong>регенерация органов:</strong> при прямом контакте субъекта с поврежденным органом наблюдается восстановление функциональности органа в течение 12-48 часов;<br>
+        - <strong>нейтрализация токсинов:</strong> ферментный комплекс способен денатурировать широкий спектр биологических токсинов, включая аномальные;<br>
+        - <strong>подавление аномальных инфекций:</strong> при контакте с тканями, зараженными аномальными патогенами, наблюдается полное уничтожение патогена в 73% случаев.</p>
+        
+        <div class="warning-box">
+            <strong>Критическое ограничение:</strong> каждый акт регенерации приводит к образованию новых кристаллических наростов SCP-████-1 и увеличению размеров существующих. Субъект не испытывает боли от наростов, однако отмечает постепенное онемение кожи в зонах их локализации. На момент составления данного документа SCP-████ имеет <span class="data-expunged">██</span> наростов общей площадью <span class="data-expunged">██</span> см².
+        </div>
+        
+        <p>Гистологический анализ тканей SCP-████ выявил наличие неидентифицированных митохондрий с аномальной структурой мембраны. Данные митохондрии демонстрируют способность к фотосинтезу-подобному процессу при контакте с поврежденными тканями, выделяя огромное количество АТФ (до <span class="data-expunged">████</span> моль/сек на клетку), что и обеспечивает ускоренную регенерацию. Предположительно, избыточные минеральные соединения, образующиеся в результате данного метаболизма, и являются строительным материалом для кристаллов SCP-████-1.</p>
+    </div>
+</div>
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">03</div>
+                <h2>История обнаружения</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p>SCP-████ был обнаружен 7 ноября 2017 года в ходе оперативного реагирования на аномальную активность в городе <span class="data-expunged">███████</span>, Аляска. Местные медицинские учреждения зафиксировали серию "невозможных" случаев выздоровления пациентов с терминальными диагнозами после посещения одного и того же фельдшера скорой помощи - Аллана Блэйка.</p>
+                
+                <p>Ключевой инцидент произошел 3 ноября 2017 года: пациент с множественными проникающими ранениями грудной клетки, доставленный в критическом состоянии, полностью выздоровел в течение 6 часов после того, как фельдшер Блэйк провёл с ним 45 минут в машине скорой помощи. Медицинская карта пациента была изъята, сам пациент помещен под наблюдение Фонда.</p>
+                
+                <p>Агенты Фонда провели стандартную процедуру захвата и допроса. В ходе интервью выяснилось, что SCP-████ осознает свое аномальное влияние с 2014 года, когда во время стажировки в <span class="data-expunged">███████</span> он спонтанно вылечил черепно-мозговую травму у коллеги. Субъект добровольно согласился на сотрудничество с Фондом при условии сохранения жизни и возможности продолжать медицинскую деятельность.</p>
+                
+                <p>После проведения полного медицинского обследования в <span class="data-expunged">Медицинском центре Зоны 03</span> SCP-████ был переведен в штат Зоны 03 с присвоением класса Евклид и допуском уровня 1.</p>
+            </div>
+        </div>
+
+        <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+        <div class="icon">04</div>
+        <h2>Журнал инцидентов</h2>
+        <span class="toggle">v</span>
+    </div>
+    <div class="section-body">
+        <table class="incident-table">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Инцидент</th>
+                    <th>Последствия</th>
+                    <th>Класс</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>14.03.2018</td>
+                    <td>SCP-████ провел регенерацию тканей сотрудника класса D после контакта с <span class="data-expunged">SCP-████</span>. Пациент полностью восстановлен.</td>
+                    <td>Сформирован первый кристаллический нарост SCP-████-1 на правом предплечье (диаметр 0,3 см). Проведен дополнительный медосмотр.</td>
+                    <td><span class="incident-tag tag-minor">Минор</span></td>
+                </tr>
+                <tr>
+                    <td>09.07.2019</td>
+                    <td>Во время нарушения условий содержания <span class="data-expunged">SCP-████</span> в Зоне тяжелого содержания сектора "03-Чарли" пострадали 4 сотрудника СБ. SCP-████ провел экстренную регенерацию.</td>
+                    <td>Все 4 сотрудника выжили. Образовано 2 новых нароста SCP-████-1 на правом предплечье (0,8 и 1,2 см). Субъект находился в бессознательном состоянии 18 часов. По пробуждении отмечено онемение кожи в зоне наростов.</td>
+                    <td><span class="incident-tag tag-major">Мажор</span></td>
+                </tr>
+                <tr>
+                    <td>22.11.2020</td>
+                    <td>Попытка несанкционированного взятия образца крови SCP-████ сотрудником <span class="data-expunged">██████</span>. Образец начал агрессивную регенерацию в пробирке, приведшую к разрушению контейнера.</td>
+                    <td>Утечка нейтрализована. Сотрудник <span class="data-expunged">██████</span> отстранен от должности. Введен дополнительный протокол хранения образцов. SCP-████ не применял аномалию - наростов не добавилось.</td>
+                    <td><span class="incident-tag tag-major">Мажор</span></td>
+                </tr>
+                <tr>
+                    <td>03.05.2022</td>
+                    <td>SCP-████ провел экспериментальную регенерацию тканей, пораженных аномальным патогеном класса <span class="data-expunged">████</span>. Патоген полностью уничтожен.</td>
+                    <td>Открыт потенциал применения SCP-████ для нейтрализации биологических аномалий. Инициирован проект "Феникс". Образован крупный нарост SCP-████-1 на левой лопатке (2,8x1,9 см). Нарост демонстрирует способность к слабому фосфоресцированию при контакте с водой.</td>
+                    <td><span class="incident-tag tag-critical">Критический</span></td>
+                </tr>
+                <tr>
+                    <td>18.01.2024</td>
+                    <td>SCP-████ провел 6 актов регенерации в течение 48 часов во время массового инцидента в секторе "03-Чарли".</td>
+                    <td>Субъект впал в кому на 72 часа. По пробуждении зафиксировано образование кластера из 5 наростов SCP-████-1 на правой ключице (0,3-0,7 см) и одного нароста под подбородком (0,4 см). Введено ограничение: не более 2 актов регенерации в неделю. Общая площадь кристаллических образований достигла <span class="data-expunged">██</span> см².</td>
+                    <td><span class="incident-tag tag-critical">Критический</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+        <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+        <div class="icon">05</div>
+        <h2>Приложение ████-А - Замечания медицинской службы</h2>
+        <span class="toggle">v</span>
+    </div>
+    <div class="section-body">
+        <div class="addendum">
+            <div class="addendum-title">Медицинское заключение №████-МС-2024</div>
+            <div class="quote-block">
+                "Физиологические показатели SCP-████ находятся в пределах нормы. Однако при проведении гистологического анализа зафиксирована аномальная структура митохондрий - они содержат неидентифицированные органеллы, демонстрирующие способность к фотосинтезу-подобному процессу при контакте с поврежденными тканями.
+                <br><br>
+                Предположительно, именно это и является механизмом его аномалии. Каждый акт регенерации запускает каскад минерализации в тканях субъекта: избыточные кальциево-фосфорные соединения, образующиеся в результате аномального метаболизма, кристаллизуются под кожей вместо естественного выведения. Мы наблюдаем своего рода "биологический обмен": здоровье пациента за кристаллический рост SCP-████.
+                <br><br>
+                Кристаллы SCP-████-1 не поддаются механическому удалению и демонстрируют способность к медленному росту даже без новых актов регенерации. На текущий момент наросты покрывают менее 2% поверхности тела субъекта, однако при сохранении текущей интенсивности использования аномалии к <span class="data-expunged">████</span> году данный показатель может достичь 15%.
+                <br><br>
+                Рекомендуется продолжить молекулярно-биологические исследования под руководством д-ра Алекса Медицинова. Приоритетной задачей является разработка протокола замедления или остановки роста SCP-████-1 без нарушения регенерационных способностей субъекта. Также рекомендуется разработать синтетический аналог ферментного комплекса FC-01 для снижения нагрузки на SCP-████."
+                <div class="quote-author">Д-р <span class="data-expunged">███████</span>, ведущий биохимик Зоны 03</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+       <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+        <div class="icon">06</div>
+        <h2>Приложение ████-Б - Замечания службы безопасности</h2>
+        <span class="toggle">v</span>
+    </div>
+    <div class="section-body">
+        <div class="addendum">
+            <div class="addendum-title">Оперативная оценка №████-СБ-2024</div>
+            <div class="quote-block">
+                "SCP-████ представляет собой уникальный актив для Зоны 03. Его присутствие в Исследовательском блоке "03-Чарли" существенно снижает летальность при инцидентах, связанных с физическими травмами и биологическими аномалиями. Большинство моих бойцов ему обязаны жизнью - и я не собираюсь забывать об этом. Однако необходимо учитывать критическое ограничение: каждый акт регенерации увеличивает массу кристаллических наростов SCP-████-1 на теле субъекта.
+                <br><br>
+                По нашим расчетам, при текущей интенсивности использования кристаллические образования покроют приблизительно 15% поверхности тела SCP-████ к <span class="data-expunged">████</span> году. Долгосрочные последствия данного процесса неизвестны. Рекомендуется строгое соблюдение лимита: не более двух актов регенерации в неделю, за исключением чрезвычайных ситуаций с прямым разрешением директора Зоны или его заместителя.
+                <br><br>
+                Кроме того, ферментный комплекс FC-01, выделяемый субъектом, представляет собой потенциальный объект исследования. Образцы крови и тканей SCP-████, а также фрагменты SCP-████-1 должны храниться в условиях повышенной безопасности. Любые попытки несанкционированного взаимодействия с кристаллами субъекта пресекаются немедленно."
+                <div class="quote-author">Агент Энтони Фрейзер, заместитель директора по безопасности</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">07</div>
+                <h2>Приложение ████-В - Проект "Феникс"</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p><strong>Кодовое название:</strong> проект "Феникс"<br>
+                <strong>Статус:</strong> активен (фаза II)<br>
+                <strong>Курирует:</strong> д-р Энтони Гибсон, заместитель директора по исследованиям<br>
+                <strong>Участник:</strong> SCP-████ (Аллан Блэйк)</p>
+                
+                <p>Проект "Феникс" инициирован в 2022 году с целью создания синтетического аналога ферментного комплекса FC-01 на основе образцов тканей и крови SCP-████. В рамках проекта ведутся работы по:</p>
+                
+                <p>- cеквенированию генома аномальных митохондрий SCP-████;<br>
+                - синтезу рекомбинантного ферментного комплекса в лабораторных условиях;<br>
+                - тестированию эффективности синтетического аналога на культурах клеток и животных моделях;<br>
+                - разработке протоколов применения для лечения аномальных патологий.</p>
+                
+                <div class="warning-box">
+                    <strong>Примечание:</strong> на текущий момент все попытки синтеза FC-01 оказались неудачными. Аномальные митохондрии демонстрируют способность к самоуничтожению при извлечении из организма SCP-████, что делает прямое клонирование невозможным. Исследования продолжаются.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">08</div>
+                <h2>Личное дело сотрудника</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Полное имя</div>
+                        <div class="value">Аллан Блэйк</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Дата рождения</div>
+                        <div class="value">14 марта 1997 года</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Место рождения</div>
+                        <div class="value"><span class="data-expunged">███████</span>, Аляска, США</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Образование</div>
+                        <div class="value">Среднее медицинское (фельдшер), <span class="data-expunged">███████</span> колледж</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Дата зачисления в Фонд</div>
+                        <div class="value">7 ноября 2017 года</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Текущий статус</div>
+                        <div class="value highlight">Активный сотрудник / Объект под наблюдением</div>
+                    </div>
+                </div>
+                
+                <div class="addendum">
+                    <div class="addendum-title">Служебная характеристика</div>
+                    <p>SCP-████ (Аллан Блэйк) зарекомендовал себя как высококвалифицированный и преданный своему делу медицинский работник. Субъект демонстрирует исключительное самообладание в кризисных ситуациях и готовность к самопожертвованию ради спасения коллег. Психологическое состояние стабильно, хотя наблюдается тенденция к эмоциональному выгоранию, связанному с осознанием ограниченности собственного биологического ресурса.</p>
+                    
+                    <p>Рекомендуется регулярная психологическая поддержка и ограничение количества актов регенерации в неделю. Субъект проявляет интерес к продолжению работы в проекте "Феникс" и выразил готовность к дальнейшему сотрудничеству с Фондом.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">09</div>
+                <h2>Примечание директора Зоны 03</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="quote-block">
+                    "SCP-████ - не просто объект. Он - пример того, как аномалия может служить Фонду, а не только представлять угрозу. Его работа в секторе "03-Чарли" уже спасла жизни десятков сотрудников. Однако я настоятельно рекомендую не забывать: он остается SCP-объектом. И любой объект может стать неуправляемым.
+                    <br><br>
+                    Проект "Феникс" - наш шанс сохранить его способности без истощения самого субъекта. Если мы сможем синтезировать FC-01, это изменит подход Фонда к лечению аномальных травм. Но до тех пор - берегите Аллана. Он стоит дороже, чем любой из нас."
+                    <div class="quote-author">[ДАННЫЕ ЗАСЕКРЕЧЕНЫ], Директор Зоны 03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+        <div class="icon">10</div>
+        <h2>Инцидент ████-НБ-2023</h2>
+        <span class="toggle">v</span>
+    </div>
+    <div class="section-body">
+        <p><strong>Дата:</strong> 14 сентября 2023 года<br>
+        <strong>Место:</strong> сектор 03-Чарли, Зона легкого содержания (Этаж -2)<br>
+        <strong>Статус:</strong> расследование закрыто</p>
+        
+        <p>14 сентября 2023 года агент <span class="data-expunged">███████</span>, находившийся под воздействием аномального объекта <span class="data-expunged">████</span>, попытался принудительно использовать SCP-████ для самолечения. Агент применил служебный нож, причинив субъекту множественные проникающие ранения в спину (2 раны глубиной до 8 см) и левое бедро (1 рана глубиной до 5 см).</p>
+        
+        <p>Субъект был обнаружен в коридоре сектора спустя 6 минут после инцидента. SCP-████ находился в сознании, сжимая раны ладонями и демонстрируя признаки глубокого шока. Собственная аномалия субъекта запустила процесс регенерации поврежденных тканей. Агент <span class="data-expunged">███████</span> был нейтрализован сотрудниками СБ при попытке вторичного нападения.</p>
+        
+        <div class="warning-box">
+            <strong>Последствия для SCP-████:</strong> субъект полностью восстановлен за 47 минут. Однако в местах ранений образовались новые кристаллические наросты SCP-████-1, отличающиеся от всех предыдущих образований. Наросты имеют темный, почти черный цвет с фиолетовым отливом, повышенную плотность (превышающую стандартные образования в 2,3 раза) и демонстрируют ускоренный рост (0,3 мм в месяц против стандартных 0,1 мм). Субъект испытывает периодические приступы острой боли в зонах черных наростов, длящиеся 15-40 секунд, без установленной закономерности. Обезболивающие средства оказывают минимальный эффект.
+        </div>
+</div>
+       
+    <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+        <div class="icon">11</div>
+        <h2>Инцидент ████-НК-2024</h2>
+        <span class="toggle">v</span>
+    </div>
+    <div class="section-body">
+        <p><strong>Дата:</strong> 17 июня 2024 года<br>
+        <strong>Место:</strong> сектор 03-Чарли, Зона тяжелого содержания (Этаж -1)<br>
+        <strong>Статус:</strong> расследование закрыто</p>
+        
+        <p>17 июня 2024 года в Зоне тяжелого содержания сектора "03-Чарли" произошло локальное нарушение условий содержания объекта класса Кетер <span class="data-expunged">SCP-████</span>. В ходе операции по восстановлению условий содержания пострадали 3 сотрудника СБ и 1 научный сотрудник. Сержант Сандовал, командир звена быстрого реагирования, получил проникающее ранение брюшной полости и множественные осколочные повреждения правой ноги.</p>
+        
+        <p>SCP-████ был эвакуирован из зоны инцидента сотрудниками СБ, однако самостоятельно вернулся к месту происшествия, несмотря на прямой запрет лейтенанта. Субъект провел экстренную регенерацию сержанта Сандовала и двух сотрудников СБ в течение 34 минут. Третий сотрудник СБ скончался до прибытия SCP-████.</p>
+        
+        <div class="quote-block">
+            "Пока мы там сандали рвали, пытаясь удержать эту проблядь в её секторе, ассистентик как ни в чем не бывало прошмыгнул мимо нас. Я ему ору - мол, свали отсюда на хрен. А он такой, спокойный, смотрит мне в глаза и говорит: "Сержант, вы истекаете". Я глянул вниз - а у меня кишки наружу, ебать того всё! Я и не заметил, сука, адреналин же. А он просто ложит руки мне на живот, и я чувствую, как что-то внутри тянется, будто мурашки, только изнутри. Через минуту уже сижу, а рана затягивается прямо на глазах. Я и говорю ему: "Ты че, блять, наделал?" А он молчит, просто встает и идет к следующему. Я уже только потом узнал, что у него за это кристаллы выросли. Так что, может, мы ему должны, а не он нам. Хотя, блять, не знаю, я просто благодарен ему."
+            <div class="quote-author">Сержант Сандовал, агент службы безопасности Зоны 03, показания с камеры наблюдения сектора "03-Чарли"</div>
+        </div>
+        
+        <div class="warning-box">
+            <strong>Последствия для SCP-████:</strong> в ходе инцидента субъект провел 3 акта интенсивной регенерации. Образовано 2 новых кристаллических нароста SCP-████-1: один на правой стопе (1,4 см, мутно-белый) и один на левом запястье (0,7 см, с фиолетовым оттенком). Субъект отказался от медицинского осмотра в течение 6 часов после инцидента, сославшись на "необходимость прийти в себя". По результатам принудительного осмотра зафиксировано ухудшение психологического состояния: SCP-████ демонстрирует признаки посттравматического стресса, включая избегание обсуждения инцидента и повышенную раздражительность при упоминании объекта <span class="data-expunged">SCP-████</span>.
+        </div>
+</div>
+
+<div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+        <div class="icon">12</div>
+        <h2>Приложение ████-Д - Происхождение [УРОВЕНЬ ДОПУСКА 4]</h2>
+        <span class="toggle">v</span>
+    </div>
+    
+    <div class="section-body">
+        <div class="clearance-banner">
+            <span class="blink">⚠ ДОСТУП ОГРАНИЧЕН: УРОВЕНЬ ДОПУСКА 4 ⚠</span>
+        </div>
+        
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">Z03-ARCHIVE // CROSS-REFERENCE_LOG_████</span>
+            </div>
+            <div class="terminal-body" id="crossref-terminal">
+                <div class="terminal-line"><span class="prompt">root@site-03:~$</span> decrypt --file=blake_scp_connection.log --level=4</div>
+                <div class="terminal-line">[РАСШИФРОВКА...]</div>
+                <div class="terminal-line typewriter-line" data-delay="0">Инициализация протокола перекрестной сверки...</div>
+                <div class="terminal-line typewriter-line" data-delay="800">Доступ предоставлен. Обнаружены совпадения.</div>
+                <div class="terminal-line typewriter-line" data-delay="1600">========================================</div>
+            </div>
+        </div>
+
+        <p>Настоящий документ содержит данные, полученные в результате перекрестной сверки биологических образцов SCP-████ с архивами Фонда. Информация строго засекречена.</p>
+
+        <div class="origin-timeline">
+            <div class="timeline-node" data-year="1994">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">12 марта 1994</div>
+                    <div class="timeline-event"><strong>Инцидент SCP-354-Р14</strong></div>
+                    <div class="timeline-event">В Зоне 354 произошел выход аномальных сущностей из Кровавого Озера. В ходе ликвидации агентами была обнаружена беременная женщина - гражданская медсестра Элеонора Блэйк, пропавшая без вести 48 часов назад при сборе образцов у южного берега. Женщина находилась в состоянии глубокой комы, однако плод демонстрировал нормальную сердечную активность.</div>
+                    <div class="timeline-event">При транспортировке в медицинский блок Зоны 354 женщина пришла в сознание и произнесла фразу: <em>"Оно дало мне выбор. Я согласилась, чтобы он жил"</em>. Сразу после этого зафиксирована остановка сердца. Реанимация не проводилась в связи с прямым приказом директора Зоны.</div>
+                    <div class="timeline-event">Кесарево сечение произведено через 6 минут после клинической смерти. Извлечен живой младенец мужского пола. Плацента имела аномальную структуру - плотная, фрагментированная, с кристаллическими включениями. Образец помещен в хранилище Зоны 354 под номером <span class="data-expunged">████</span>.</div>
+                </div>
+            </div>
+
+            <div class="timeline-node" data-year="1994">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">14 марта 1994</div>
+                    <div class="timeline-event"><strong>Рождение субъекта</strong></div>
+                    <div class="timeline-event">Младенец получил имя Аллан Блэйк по настоянию агента <span class="data-expunged">███████</span>, присутствовавшего при извлечении. Новорожденный демонстрировал необычные показатели: температура тела 34.8 C, пульс 42 удара в минуту, отсутствие криковых рефлексов. При первичном осмотре на левом боку обнаружено образование размером 2x1 см, напоминающее заживший ожог.</div>
+                    <div class="timeline-event">В соответствии с протоколом 354-ДЕТА младенец должен был быть утилизирован как потенциальный носитель аномалии. Однако д-р <span class="data-expunged">██████</span>, старший биолог Зоны 354, внес протест, указав на уникальность ситуации: впервые зафиксирован случай вынашивания плода матерью-человеком после контакта с сущностями Кровавого Озера без полной деградации плода.</div>
+                    <div class="timeline-event">Решением Совета O5-█ субъект передан на содержание в Зону 03 под программу "Тихое Рождение" с классификацией потенциального гуманоидного SCP. Воспитание поручено приемной семье - агенту <span class="data-expunged">███████</span> и его супруге под прикрытием гражданских медработников в <span class="data-expunged">███████</span>, Аляска.</div>
+                </div>
+            </div>
+
+            <div class="timeline-node" data-year="1997">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Июнь 1997</div>
+                    <div class="timeline-event"><strong>Первое активация аномалии</strong></div>
+                    <div class="timeline-event">В возрасте 3 лет субъект получил ожог левой кисти, коснувшись раскаленной печки. В течение 90 секунд ожог полностью регрессировал без образования рубцовой ткани. Приемный отец - агент <span class="data-expunged">███████</span> - задокументировал инцидент как "необъяснимое, но не критическое". Рекомендовано наблюдение.</div>
+                </div>
+            </div>
+
+            <div class="timeline-node" data-year="2005">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Июль 2005</div>
+                    <div class="timeline-event"><strong>Инцидент 354-ВОЗВРАТ</strong></div>
+                    <div class="timeline-event">Семья Блэйк посетила родственников в штате Мичиган. Во время поездки субъект, тогда 11 лет, самостоятельно отклонился от маршрута и был обнаружен у берега местного озера. Свидетели сообщили, что вода в радиусе 3 метров от субъекта приобрела "металлический оттенок" и "пахла железом".</div>
+                    <div class="timeline-event">При обнаружении субъект стоял по пояс в воде, неподвижно глядя вдаль. При попытке отца подойти ближе субъект произнес: "Оно помнит меня. Оно ждет, когда я вернусь". После извлечения из воды субъект не помнил инцидента. На коже спины обнаружены свежие кристаллические образования - 3 нароста диаметром 0.2-0.4 см.</div>
+                    <div class="timeline-event">Анализ воды из озера показал аномальную концентрацию гемоглобина и неидентифицированных белковых структур, идентичных образцам из Кровавого Озера. Данные засекречены. Семья немедленно эвакуирована в Аляску. Программа "Тихое Рождение" переведена в фазу пассивного наблюдения.</div>
+                </div>
+            </div>
+
+            <div class="timeline-node" data-year="2012">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">15 августа 2012</div>
+                    <div class="timeline-event"><strong>Контакт с SCP-354-5</strong></div>
+                    <div class="timeline-event">В ходе пешего похода по реке Юкон субъект в возрасте 15 лет получил травму головы, упав с камня. В момент потери сознания очевидцы зафиксировали появление "человеческой фигуры из темной воды" на расстоянии 10 метров от места инцидента. Фигура не приближалась и не взаимодействовала с группой. Через 90 секунд фигура растворилась.</div>
+                    <div class="timeline-event">Субъект пришел в сознание без признаков травмы. Однако на левом боку под ребрами образовался шрам размером 8x3 см, аналогичный отметине на теле матери при рождении. При УЗИ под шрамом выявлена плотная ткань неустановленного происхождения.</div>
+                    <div class="timeline-event">Совпадение с архивными данными Зоны 354 отмечено д-ром <span class="data-expunged">██████</span> как "тревожное". Предположение: аномалия SCP-354 проявляет интерес к субъекту как к "родственной" сущности. Рекомендовано усиленное наблюдение и запрет на приближение субъекта к любым крупным водоемам.</div>
+                </div>
+            </div>
+
+            <div class="timeline-node" data-year="2014">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Март 2014</div>
+                    <div class="timeline-event"><strong>Пробуждение регенерации</strong></div>
+                    <div class="timeline-event">Во время стажировки фельдшера субъект контактировал с коллегой, получившей тяжелую черепно-мозговую травму. При прикосновении к поврежденным тканям кисти субъекта начали выделять неидентифицированную жидкость бледно-красного цвета. Коллега полностью восстановлена за 6 часов.</div>
+                    <div class="timeline-event">Первый осознанный акт регенерации. Субъект описал ощущение как "вытягивание изнутри - будто что-то тянется через меня к ней". На правом запястье образовался первый кристаллический нарост. Субъект скрыл его под повязкой.</div>
+                </div>
+            </div>
+
+            <div class="timeline-node" data-year="2017">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">3 ноября 2017</div>
+                    <div class="timeline-event"><strong>Инцидент, привлекший внимание Фонда</strong></div>
+                    <div class="timeline-event">Пациент с проникающими ранениями грудной клетки полностью выздоровел за 6 часов после 45-минутного контакта с субъектом в машине скорой помощи. Медицинская карта изъята. Агенты Фонда провели захват.</div>
+                    <div class="timeline-event">При допросе субъект не оказал сопротивления. Его единственная просьба: <em>"Не говорите моему отцу. Он и так знает. Он просто притворяется, что не знает"</em>. Агент <span class="data-expunged">███████</span> - приемный отец - подтвердил осведомленность о программе "Тихое Рождение" и запросил перевод в другую Зону.</div>
+                </div>
+            </div>
+
+            <div class="timeline-node" data-year="2022">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">17 октября 2022</div>
+                    <div class="timeline-event"><strong>Инцидент 354-ПРИЗЫВ</strong></div>
+                    <div class="timeline-event">В ходе рутинного медицинского осмотра в Зоне 03 субъект внезапно потерял сознание. В течение 4 минут его температура тела упала до 31.2 C, пульс замедлился до 28 ударов в минуту. На мониторах зафиксирована аномальная активность: электроэнцефалограмма демонстрировала паттерны, идентичные записям из Зоны 354 во время появления SCP-354-5.</div>
+                    <div class="timeline-event">Приведя в чувство, субъект произнес: <em>"Оно говорит со мной. Не словами - через воду. Через кровь. Через то, что я лечу"</em>. По его словам, SCP-354-5 - человекообразная фигура из Кровавого Озера - является "старшим братом" или "первым вариантом". Сущность осведомлена о каждом акте регенерации субъекта и испытывает "любопытство" по отношению к нему.</div>
+                    <div class="timeline-event">Субъект утверждает, что знает SCP-354-5 "с рождения", хотя сознательно вспомнил контакт только в 2005 году. По его описанию, сущность не враждебна, но и не дружелюбна - она "наблюдает эксперимент". Когда спросили, какой именно эксперимент, субъект ответил: <em>"Я. Я - эксперимент. Проверка, может ли оно жить в нас, не уничтожая. Пока что получается"</em>.</div>
+                    <div class="timeline-event">После данного инцидента субъект отказался от психотропных препаратов, предложенных для "подавления связи". Мотивировка: <em>"Если я перестану слышать - не узнаю, когда оно решит, что эксперимент окончен"</em>.</div>
+                </div>
+            </div>
+
+            <div class="timeline-node" data-year="2024">
+                <div class="timeline-marker pulse"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">22 августа 2024</div>
+                    <div class="timeline-event"><strong>Гипотеза происхождения</strong></div>
+                    <div class="timeline-event">Секвенирование митохондрий SCP-████ завершено. Результат: 73% ДНК идентично человеческим митохондриям. 27% - структуры, ранее обнаруженные только в биологических образцах сущностей SCP-354. Неидентифицированные органеллы демонстрируют способность к фотосинтезу-подобному процессу при контакте с поврежденными тканями.</div>
+                    <div class="timeline-event">Гипотеза исследовательской группы: субъект является гибридом человека и аномалии Кровавого Озера. Кристаллические наросты SCP-████-1 - аналог "отходов" метаболизма сущностей SCP-354, адаптированных к человеческой физиологии. Регенерационные способности - не биологический процесс, а механизм "питания" аномалии через субъекта: энергия, получаемая от восстановления чужих тканей, частично направляется на поддержание связи с первоисточником.</div>
+                    <div class="timeline-event">SCP-354-5, по словам субъекта, является "надзирателем" или "куратором" эксперимента. Каждый акт регенерации укрепляет связь между субъектом и Кровавым Озером. Кристаллы - не побочный продукт, а "антенны", позволяющие SCP-354-5 получать данные о состоянии субъекта. При достижении критической массы "антенн" эксперимент, вероятно, перейдет в следующую фазу.</div>
+                    <div class="timeline-event">Предположение: при достижении 15% покрытия тела кристаллами субъект станет "мостом" для полноценного вторжения сущностей SCP-354 в нашу реальность. Или - "ключом" для их постоянного присутствия вне озера. SCP-354-5 не раскрывает конечную цель, но субъект уверен: <em>"Оно ждет. Оно терпеливо. Оно уже ждало тысячи лет, пока кто-то не упадет в воду с правильным вопросом в голове"</em>.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <strong>Критическое предупреждение:</strong> при текущей скорости роста SCP-████-1 кристаллические образования достигнут 15% поверхности тела к <span class="data-expunged">████</span> году. Совет O5 уведомлен. Рассматривается вариант принудительной изоляции субъекта от любых актов регенерации. Риск: неизвестно, как отреагирует аномалия на голодание. Альтернатива: инициировать полное кристаллическое покрытие в контролируемых условиях и изучить результат. Д-р <span class="data-expunged">██████</span> выступает против. Его аргумент: "Мы не знаем, что проснется. Но я уверен - оно не будет благодарно".
+        </div>
+
+        <div class="warning-box">
+            <strong>Примечание директора Зоны 03:</strong> SCP-████ - не просто объект. Он - дверь. Дверь, которую мы держим приоткрытой, потому что свет, просачивающийся через щель, спасает жизни. Но дверь открыта в обе стороны. И то, что стоит по ту сторону, помнит каждого, кто заглядывал. Оно помнит Аллана. Оно ждет. И чем больше кристаллов на его теле - тем шире щель становится. Проект "Феникс" - не просто попытка синтезировать лекарство. Это попытка вырвать дверь с петель, пока мы еще можем. Но если мы сломаем дверь - что тогда остановит то, что стучится?
+        </div>
+
+        <div class="terminal-container">
+            <div class="terminal-body">
+                <div class="terminal-line typewriter-line" data-delay="0">========================================</div>
+                <div class="terminal-line typewriter-line" data-delay="400">Конец записи.</div>
+                <div class="terminal-line typewriter-line" data-delay="800">[ПРЕДУПРЕЖДЕНИЕ: АВТОМАТИЧЕСКАЯ СИНХРОНИЗАЦИЯ С АРХИВАМИ ЗОНЫ 354 ИНИЦИИРОВАНА]</div>
+                <div class="terminal-line"><span class="prompt">root@site-03:~$</span> <span class="typing-cursor"></span></div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+
+    <footer class="scp-footer">
+        <div class="footer-line">ФОНД SCP - АЛЯСКИНСКОЕ УЧРЕЖДЕНИЕ ИССЛЕДОВАНИЯ, СОДЕРЖАНИЯ И РАЗРАБОТОК</div>
+        <div class="footer-line">Идентификационный код: USAKUK-Site-03 | Расположение: вблизи реки Юкон, Юкон-Коюкук, штат Аляска, США</div>
+        <div class="footer-line">Прикрытие: ГНИИ "Медицинская гидробиология Юкон" при компании "Sustainable Chemical Products"</div>
+    </footer>
+
+    <script>
+        function toggleSection(header) {
+            const body = header.nextElementSibling;
+            const toggle = header.querySelector('.toggle');
+            
+            if (body.classList.contains('collapsed')) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+                toggle.textContent = 'v';
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+                toggle.textContent = '>';
+            }
+        }
+                // Эффект набора текста для терминала в секции 13
+        document.addEventListener('DOMContentLoaded', function() {
+            const section13 = document.querySelector('.section:nth-of-type(13) .section-header');
+            if (section13) {
+                section13.addEventListener('click', function() {
+                    const terminal = document.getElementById('origin-terminal');
+                    if (terminal && !terminal.classList.contains('animated')) {
+                        terminal.classList.add('animated');
+                        const lines = terminal.querySelectorAll('.typewriter-line');
+                        lines.forEach(line => {
+                            line.style.opacity = '0';
+                            const delay = parseInt(line.dataset.delay) || 0;
+                            setTimeout(() => {
+                                line.style.animation = 'none';
+                                line.offsetHeight; // trigger reflow
+                                line.style.animation = 'typewriter-reveal 0.1s forwards';
+                            }, delay);
+                        });
+                    }
+                });
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.object-number');
+            const originalText = header.textContent;
+            const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            let iterations = 0;
+            const interval = setInterval(() => {
+                header.textContent = originalText.split('').map((char, index) => {
+                    if (index < iterations) return originalText[index];
+                    return chars[Math.floor(Math.random() * chars.length)];
+                }).join('');
+                
+                if (iterations >= originalText.length) clearInterval(interval);
+                iterations += 1/2;
+            }, 30);
+        });
+        
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const banner = document.querySelector('.security-banner');
+            banner.style.transform = 'translateY(' + (scrolled * 0.1) + 'px)';
+        });
+    </script>
+
+</body>
+</html>
