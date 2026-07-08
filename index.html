@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аллан Блэйк | Медицинская служба - Зона 03</title>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* ——— Backgrounds ——— */
+            --bg-page:        #121214;
+            --bg-card:        #1a1a1e;
+            --bg-card-hover:  #1f1f24;
+            --bg-elevated:    #222228;
+            --bg-terminal:    #0d0d10;
+
+            /* ——— Text ——— */
+            --text-primary:   #e2e2e8;
+            --text-secondary: #a0a0ac;
+            --text-muted:     #6e6e7a;
+            --text-heading:   #f0f0f5;
+
+            /* ——— Accents ——— */
+            --accent-red:     #c0392b;
+            --accent-red-dim: #8b2a1f;
+            --accent-amber:   #d4a017;
+            --accent-green:   #27ae60;
+            --accent-blue:    #4a90d9;
+            --accent-euclid:  #d4892a;
+
+            /* ——— Borders ——— */
+            --border-subtle:  #2a2a32;
+            --border-medium:  #353540;
+            --border-strong:  #40404c;
+
+            /* ——— Spacing scale ——— */
+            --space-xs:  4px;
+            --space-sm:  8px;
+            --space-md:  16px;
+            --space-lg:  24px;
+            --space-xl:  32px;
+            --space-2xl: 48px;
+
+            /* ——— Typography ——— */
+            --font-body:    'PT Serif', Georgia, 'Times New Roman', serif;
+            --font-ui:      'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono:    'Roboto Mono', 'SF Mono', 'Fira Code', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            line-height: 1.75;
+            font-size: 17px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .scp-header {
+            background: var(--bg-terminal);
+            border-bottom: 2px solid var(--accent-red-dim);
+            padding: 0;
+            position: relative;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .scp-logo-text h1 {
+            font-family: var(--font-mono);
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-heading);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .scp-logo-text .subtitle {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: var(--space-xs);
+        }
+
+        .scp-nav {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .scp-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.25s ease;
+            position: relative;
+        }
+
+        .scp-nav a:hover {
+            color: var(--accent-red);
+        }
+
+        /* ============================================================
+           SECURITY BANNER
+           ============================================================ */
+        .security-banner {
+            background: var(--accent-red-dim);
+            padding: 10px;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--accent-red);
+        }
+
+        .security-banner .blink {
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* ============================================================
+           MAIN CONTAINER
+           ============================================================ */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-xl);
+        }
+
+        /* ============================================================
+           DOSSIER HEADER
+           ============================================================ */
+        .object-header {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--accent-green);
+            padding: var(--space-xl) var(--space-xl);
+            margin-bottom: var(--space-xl);
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .object-header::before {
+            content: 'СТАТУС: АКТИВЕН';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent-green);
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 500;
+            padding: 5px 14px;
+            letter-spacing: 2px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .object-number {
+            font-family: var(--font-mono);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+
+        .object-name {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           INFO GRID
+           ============================================================ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .info-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 4px;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .info-box:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-medium);
+        }
+
+        .info-box .label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-box .label::before {
+            content: '>';
+            color: var(--accent-red-dim);
+            font-size: 9px;
+        }
+
+        .info-box .value {
+            font-size: 15px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .info-box .value.highlight {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-family: var(--font-ui);
+        }
+
+        /* ============================================================
+           COLLAPSIBLE SECTIONS
+           ============================================================ */
+        .section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            margin-bottom: var(--space-lg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--bg-elevated);
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            user-select: none;
+        }
+
+        .section-header:hover {
+            background: #2a2a32;
+        }
+
+        .section-header .icon {
+            width: 26px;
+            height: 26px;
+            background: var(--accent-red-dim);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: #fff;
+            flex-shrink: 0;
+            font-weight: 500;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-heading);
+            font-weight: 500;
+        }
+
+        .section-header .toggle {
+            margin-left: auto;
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: transform 0.25s ease;
+            font-family: var(--font-mono);
+        }
+
+        .section-header.collapsed .toggle {
+            transform: rotate(-90deg);
+        }
+
+        .section-body {
+            padding: var(--space-xl);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-body.collapsed {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-body p {
+            margin-bottom: var(--space-md);
+            text-align: justify;
+            color: var(--text-primary);
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-body strong {
+            color: var(--text-heading);
+            font-weight: 700;
+        }
+
+        .section-body ul {
+            margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+            padding-left: var(--space-md);
+        }
+
+        .section-body li {
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           REDACTED / EXPUNGED
+           ============================================================ */
+        .redacted {
+            background: #0a0a0c;
+            color: transparent;
+            padding: 1px 5px;
+            border-radius: 2px;
+            cursor: help;
+            transition: all 0.2s ease;
+            border: 1px solid #1a1a1e;
+        }
+
+        .redacted:hover {
+            background: var(--accent-red-dim);
+            color: rgba(255,255,255,0.9);
+            border-color: var(--accent-red);
+        }
+
+        .data-expunged {
+            background: repeating-linear-gradient(
+                90deg,
+                #0a0a0c,
+                #0a0a0c 4px,
+                #141418 4px,
+                #141418 8px
+            );
+            color: var(--text-muted);
+            padding: 2px 8px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================================
+           WARNING BOX
+           ============================================================ */
+        .warning-box {
+            background: rgba(192, 57, 43, 0.06);
+            border: 1px solid rgba(192, 57, 43, 0.25);
+            border-left: 3px solid var(--accent-red);
+            padding: var(--space-lg) var(--space-xl);
+            margin: var(--space-lg) 0;
+            position: relative;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .warning-box::before {
+            content: '!';
+            position: absolute;
+            top: -10px;
+            left: 14px;
+            background: var(--accent-red-dim);
+            color: #fff;
+            font-size: 12px;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-family: var(--font-mono);
+            font-weight: 700;
+        }
+
+        .warning-box strong {
+            color: var(--accent-red);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 11px;
+        }
+
+        /* ============================================================
+           ADDENDUM
+           ============================================================ */
+        .addendum {
+            background: rgba(74, 144, 217, 0.04);
+            border: 1px solid rgba(74, 144, 217, 0.18);
+            border-left: 3px solid var(--accent-blue);
+            padding: var(--space-lg) var(--space-xl);
+            margin: var(--space-lg) 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .addendum-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .addendum-title::before {
+            content: '*';
+        }
+
+        /* ============================================================
+           QUOTE BLOCK
+           ============================================================ */
+        .quote-block {
+            background: rgba(255, 255, 255, 0.025);
+            border-left: 3px solid var(--border-medium);
+            padding: var(--space-lg) var(--space-xl);
+            margin: var(--space-lg) 0;
+            font-style: italic;
+            position: relative;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .quote-block::before {
+            content: '"';
+            position: absolute;
+            top: 4px;
+            left: 12px;
+            font-size: 36px;
+            color: var(--border-medium);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .quote-author {
+            margin-top: var(--space-md);
+            font-style: normal;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .quote-author::before {
+            content: '— ';
+        }
+
+        /* ============================================================
+           INCIDENT TABLE
+           ============================================================ */
+        .incident-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: var(--space-lg) 0;
+            font-size: 14px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .incident-table th {
+            background: var(--bg-elevated);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            border-bottom: 2px solid var(--border-medium);
+            font-weight: 500;
+        }
+
+        .incident-table td {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-subtle);
+            vertical-align: top;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .incident-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .incident-table tr:hover td {
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .incident-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            margin-right: 4px;
+            font-weight: 500;
+        }
+
+        .tag-critical { background: rgba(231, 76, 60, 0.12); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.3); }
+        .tag-major    { background: rgba(230, 126, 34, 0.12); color: #e67e22; border: 1px solid rgba(230, 126, 34, 0.3); }
+        .tag-minor    { background: rgba(46, 204, 113, 0.10); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.25); }
+
+        /* ============================================================
+           TERMINAL
+           ============================================================ */
+        .terminal-container {
+            background: var(--bg-terminal);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            margin: var(--space-lg) 0;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: var(--bg-elevated);
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .terminal-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .terminal-dot.red    { background: var(--accent-red); }
+        .terminal-dot.yellow { background: var(--accent-amber); }
+        .terminal-dot.green  { background: var(--accent-green); }
+
+        .terminal-title {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-left: 8px;
+            letter-spacing: 1px;
+        }
+
+        .terminal-body {
+            padding: var(--space-md) var(--space-lg);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--accent-green);
+        }
+
+        .terminal-line {
+            margin: 4px 0;
+        }
+
+        .terminal-line .prompt {
+            color: var(--accent-red);
+        }
+
+        /* ============================================================
+           TIMELINE
+           ============================================================ */
+        .origin-timeline {
+            position: relative;
+            margin: var(--space-xl) 0;
+            padding-left: 28px;
+        }
+
+        .origin-timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-red-dim), var(--accent-euclid), var(--accent-blue));
+            border-radius: 1px;
+        }
+
+        .timeline-node {
+            position: relative;
+            margin-bottom: var(--space-xl);
+            opacity: 0;
+            transform: translateX(-12px);
+            animation: slide-in 0.5s ease forwards;
+        }
+
+        .timeline-node:nth-child(1) { animation-delay: 0.15s; }
+        .timeline-node:nth-child(2) { animation-delay: 0.3s; }
+        .timeline-node:nth-child(3) { animation-delay: 0.45s; }
+        .timeline-node:nth-child(4) { animation-delay: 0.6s; }
+        .timeline-node:nth-child(5) { animation-delay: 0.75s; }
+        .timeline-node:nth-child(6) { animation-delay: 0.9s; }
+
+        @keyframes slide-in {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -24px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-card);
+            border: 2px solid var(--accent-euclid);
+            border-radius: 50%;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-marker.pulse {
+            border-color: var(--accent-red);
+            animation: marker-pulse 2.5s ease infinite;
+        }
+
+        @keyframes marker-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.3); }
+            50%      { box-shadow: 0 0 0 6px rgba(192, 57, 43, 0); }
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--accent-euclid);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .timeline-year {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent-euclid);
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .timeline-event {
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .timeline-event:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-quote .quote-block {
+            margin: var(--space-md) 0 0 0;
+            background: rgba(192, 57, 43, 0.04);
+            border-left-color: var(--accent-red-dim);
+        }
+
+        /* ============================================================
+           CLEARANCE BANNER
+           ============================================================ */
+        .clearance-banner {
+            background: linear-gradient(90deg, var(--accent-red-dim), #5c1a14, var(--accent-red-dim));
+            background-size: 200% 100%;
+            animation: gradient-shift 4s ease infinite;
+            padding: 10px;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: var(--space-lg);
+            border: 1px solid rgba(192, 57, 43, 0.4);
+            border-radius: 4px;
+        }
+
+        @keyframes gradient-shift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .scp-footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-subtle);
+            padding: var(--space-xl);
+            text-align: center;
+            margin-top: var(--space-2xl);
+        }
+
+        .scp-footer .footer-line {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+
+        .scp-footer .footer-classified {
+            color: var(--accent-red);
+            font-weight: 500;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-page);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                text-align: center;
+                padding: var(--space-md);
+            }
+
+            .scp-nav {
+                justify-content: center;
+                gap: var(--space-md);
+            }
+
+            .object-number {
+                font-size: 20px;
+            }
+
+            .main-container {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .section-body {
+                padding: var(--space-md);
+            }
+
+            body {
+                font-size: 16px;
+            }
+        }
+
+        /* ============================================================
+           UTILITY
+           ============================================================ */
+        .text-accent { color: var(--accent-euclid); font-weight: 600; }
+    </style>
+</head>
+
+    <div class="security-banner">
+        &nbsp;&nbsp;|&nbsp;&nbsp; ЗОНА 03 - USAKUK-Site-03 &nbsp;&nbsp;|&nbsp;&nbsp;
+    </div>
+
+    <header class="scp-header">
+        <div class="header-inner">
+            <div class="scp-logo">
+                <div class="scp-logo-text">
+                    <h1>Фонд SCP</h1>
+                    <div class="subtitle">Secure. Contain. Protect.</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <div class="object-header">
+            <div class="object-number">ПЕРСОНАЛЬНОЕ ДОСЬЕ</div>
+            <div class="object-name">Аллан Блэйк - Ассистент медицинской службы Зоны 03</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="label">Статус</div>
+                <div class="value highlight">Активный сотрудник</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Местоположение</div>
+                <div class="value">Сектор 03-Чарли</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Должность</div>
+                <div class="value">Ассистент медицинской службы, парамедик</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Непосредственный руководитель</div>
+                <div class="value">Д-р Алекс Медицинов, заместитель директора по медицине</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Уровень допуска</div>
+                <div class="value">1</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Класс персонала</div>
+                <div class="value">C</div>
+            </div>
+        </div>
+
+                <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">01</div>
+                <h2>Условия содержания и совместного функционирования</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p>Сотрудник Блэйк содержится в рамках программы совместного функционирования с Фондом. Проживает в камере типа C-2 сектора 03-Чарли.</p>
+                
+                <p>Блэйк не покидает пределов сектора 03-Чарли без сопровождения не менее двух агентов СБ.</p>
+                
+                <p>Сотрудник допущен к выполнению служебных обязанностей при соблюдении следующих условий:</p>
+                
+                <ul>
+                    <li>активация аномалии возможна <strong>только при прямом контакте с кожей пациента</strong>. Для предотвращения несанкционированной активации Блэйк обязан носить изолирующие перчатки класса III-A (аномально-стойкие) во всех ситуациях, не связанных с санкционированным медицинским вмешательством;</li>
+                    <li>сотрудник не должен проводить хирургические операции без присутствия не менее двух сертифицированных хирургов;</li>
+                    <li>любые изменения в физиологическом состоянии Блэйка должны быть немедленно задокументированы и переданы д-ру Алексу Медицинову;</li>
+                    <li>сотрудник обязан сообщать о любых соматических ощущениях, выходящих за рамки нормы, в течение 15 минут.</li>
+                </ul>
+                    <strong>Особые Условия Содержания:</strong> активация аномалии происходит <strong>только при сознательном решении сотрудника</strong>. Блэйк демонстрирует полный контроль над процессом: он способен выбирать, какие ткани регенерировать, в каком объёме и с какой интенсивностью. Однако при длительном физическом контакте (более 90 секунд) с повреждёнными тканями аномалия начинает протекать автономно, вне зависимости от воли сотрудника. Именно поэтому перчатки являются обязательным элементом экипировки, а не мерой гигиены.
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">02</div>
+                <h2>Описание</h2>   
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p>Аллан Блэйк - гуманоид мужского пола, 29 лет, рост 176 см, вес 63 кг.</p>
+                
+                <p><strong>Внешние особенности:</strong></p>
+                
+                <ul>
+                    <li><strong>Глаза:</strong> серо-голубого цвета с выраженной гетерохромией - левый зрачок имеет приглушённый золотистый оттенок, который усиливается при активации аномалии. При регенерации чужеродных тканей оба зрачка расширяются несимметрично, а склеры приобретают лёгкий зеленоватый оттенок, сохраняющийся 10-15 минут после контакта.</li>
+                    <li><strong>Кожа:</strong> бледная, почти восковая текстура. При дневном свете на предплечьях и шее видны едва различимые узоры, напоминающие капиллярную сеть, но с геометрически правильным строением. Узоры становятся заметно ярче при повышенной физической нагрузке или стрессе.</li>
+                    <li><strong>Волосы:</strong> тёмно-русые с проседью у висков, несмотря на возраст. Отдельные пряди при прямом солнечном свете отбрасывают слабое фосфоресцирование голубоватого спектра, зафиксированное только при съёмке в инфракрасном диапазоне.</li>
+                    <li><strong>Руки:</strong> ладони и кончики пальцев постоянно холодные (28-30 °C), независимо от окружающей температуры. На подушечках пальцев отсутствуют привычные дерматоглифические узоры - вместо них наблюдается сплошная микрорельефная сетка, напоминающая структуру листовой вены.</li>
+                    <li><strong>Шрамы:</strong> на левом боку, под рёбрами, присутствует вытянутое образование размером 8×3 см, напоминающее зажившую ожоговую рану. Сотрудник не помнит его происхождение. При УЗИ под образованием обнаружена плотная ткань неустановлённого происхождения, не совпадающая ни с одним известным типом человеческой ткани.</li>
+                </ul>
+                
+                <p><strong>Кристаллические наросты (особая отметка B-1):</strong></p>
+                
+                <p>В ходе наблюдений выявлено, что сотрудник не подвержен естественному старению в привычном понимании. Вместо этого каждый акт регенерации чужеродных тканей вызывает образование твёрдых кристаллических наростов на теле Блэйка. На текущий момент наросты локализованы в следующих зонах:</p>
+                
+                <ul>
+                    <li><strong>Правое предплечье:</strong> три нароста диаметром 0,5-1,2 см, расположенные линейно от локтевого сгиба к запястью. Кристаллы полупрозрачные, с лёгким голубоватым оттенком, напоминают застывший лёд. При пальпации тёплые на ощупь, несмотря на общую холодность конечностей сотрудника. Под микроскопом видна слоистая структура, аналогичная дендритным кристаллам, но с биологическим матриксом между слоями.</li>
+                    <li><strong>Левая лопатка:</strong> один крупный нарост размером 2,8×1,9 см, имеющий форму неправильного многогранника. Поверхность гладкая, зеркально отражает свет. При контакте с водой кристалл начинает слабо светиться холодным белым светом, интенсивность которого коррелирует с временем, прошедшим с последнего акта регенерации.</li>
+                    <li><strong>Правая ключица:</strong> кластер из пяти мелких наростов (0,3-0,7 см), сросшихся основанием в форме полумесяца. Цвет кристаллов - мутно-белый с прожилками тёмно-серого. При рентгенографии внутри наростов видны полые каналы, заполненные жидкостью, идентичной по составу цереброспинальной жидкости человека.</li>
+                    <li><strong>Подбородок:</strong> один нарост диаметром 0,4 см, почти полностью скрытый под кожей. Виден как небольшое выпуклое уплотнение. Сотрудник испытывает лёгкий дискомфорт при надавливании. Кристалл имеет янтарно-жёлтый цвет и фрактальную структуру при изучении под электронным микроскопом.</li>
+                </ul>
+                
+                <p>Гистологический анализ образцов B-1 показал, что кристаллы состоят из гибридной органо-минеральной матрицы: 67% - неидентифицированный кальциево-фосфорный соединение, 23% - белковые структуры, сходные с коллагеном типа IV, 10% - органические соединения неустановлённого происхождения. Кристаллы не поддаются механическому удалению без повреждения окружающих тканей и демонстрируют способность к медленному росту (приблизительно 0,1 мм в месяц).</p>
+                
+                <p>Сотрудник двигается медленно, с характерной плавностью, напоминающей подводное плавание. При длительном наблюдении (более 3 минут непрерывного зрительного контакта) у наблюдателей возникает лёгкое головокружение и ощущение, что кожа Блэйка слегка пульсирует в такт собственному сердцебиению наблюдателя. Данный эффект не поддаётся физическому объяснению и классифицирован как когнитивный побочный эффект сотрудника.</p>
+                
+                <p><strong>Основное аномальное свойство Аллана</strong> заключается в способности к <span class="text-accent">биологической регенерации чужеродных тканей</span> через прямой физический контакт. При соприкосновении с повреждёнными тканями другого организма (человека или животного) клетки Блэйка начинают выделять неидентифицированный ферментный комплекс (временное обозначение: FC-01), который стимулирует ускоренную регенерацию повреждённых тканей с коэффициентом ускорения от 8× до 47× по сравнению с естественной регенерацией.</p>
+                
+                <p>Проявления аномалии включают:</p>
+                
+                <ul>
+                    <li><strong>Ускоренное заживление ран:</strong> поверхностные порезы заживают за 15-30 секунд, глубокие тканевые повреждения - за 2-5 минут.</li>
+                    <li><strong>Регенерация органов:</strong> при прямом контакте сотрудника с повреждённым органом наблюдается восстановление функциональности органа в течение 12-48 часов. Полная регенерация утраченной конечности (например, ампутированной руки) на текущий момент не зафиксирована - максимальный зарегистрированный результат: восстановление 73% массы утраченной ткани при контакте длительностью 4 часа 12 минут.</li>
+                    <li><strong>Удаление заражённых тканей:</strong> ферментный комплекс способен денатурировать и вытеснять некротические, заражённые аномальными патогенами или онкологически изменённые ткани, заменяя их здоровыми аналогами. Однако данный процесс требует значительно больших энергетических затрат и ускоряет рост кристаллов B-1 в 1,8-2,3 раза.</li>
+                    <li><strong>Нейтрализация токсинов:</strong> ферментный комплекс способен денатурировать широкий спектр биологических токсинов, включая аномальные.</li>
+                    <li><strong>Подавление аномальных инфекций:</strong> при контакте с тканями, заражёнными аномальными патогенами, наблюдается полное уничтожение патогена в 73% случаев.</li>
+                </ul>
+                
+                <p>Гистологический анализ тканей Блэйка выявил наличие неидентифицированных митохондрий с аномальной структурой мембраны. Данные митохондрии демонстрируют способность к фотосинтезу-подобному процессу при контакте с повреждёнными тканями, выделяя огромное количество АТФ (до ████ моль/сек на клетку), что и обеспечивает ускоренную регенерацию. Предположительно, избыточные минеральные соединения, образующиеся в результате данного метаболизма, и являются строительным материалом для кристаллов B-1.</p>
+            </div>
+        </div>
+
+                <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">03</div>
+                <h2>История обнаружения</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p>Сотрудник Блэйк был обнаружен 7 ноября 2017 года в ходе оперативного реагирования на аномальную активность в городе ███████, Аляска. Местные медицинские учреждения зафиксировали серию "невозможных" случаев выздоровления пациентов с терминальными диагнозами после посещения одного и того же фельдшера скорой помощи - Аллана Блэйка.</p>
+                
+                <p>Ключевой инцидент произошел 3 ноября 2017 года: пациент с множественными проникающими ранениями грудной клетки, доставленный в критическом состоянии, полностью выздоровел в течение 6 часов после того, как фельдшер Блэйк провел с ним 45 минут в машине скорой помощи. Медицинская карта пациента была изъята, сам пациент помещен под наблюдение Фонда.</p>
+                
+                <p>Агенты Фонда провели стандартную процедуру захвата и допроса. В ходе интервью выяснилось, что Блэйк осознает свое аномальное влияние с 2014 года, когда во время стажировки в ███████ он спонтанно вылечил черепно-мозговую травму у коллеги. Сотрудник добровольно согласился на сотрудничество с Фондом при условии сохранения жизни и возможности продолжать медицинскую деятельность.</p>
+                
+                <p>После проведения полного медицинского обследования в Медицинском блоке Зоны 03 Блэйк был переведен в штат Зоны 03.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">04</div>
+                <h2>Журнал инцидентов</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <table class="incident-table">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Инцидент</th>
+                            <th>Последствия</th>
+                            <th>Класс</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>14.03.2018</td>
+                            <td>Блэйк провел регенерацию тканей сотрудника класса D после контакта с █████. Пациент полностью восстановлен.</td>
+                            <td>Сформирован первый кристаллический нарост B-1 на правом предплечье (диаметр 0,3 см). Проведен дополнительный медосмотр.</td>
+                            <td><span class="incident-tag tag-minor">Минор</span></td>
+                        </tr>
+                        <tr>
+                            <td>09.07.2019</td>
+                            <td>Во время нарушения условий содержания SCP-███ в Зоне тяжелого содержания сектора "03-Чарли" пострадали 4 сотрудника СБ. Блэйк провел экстренную регенерацию.</td>
+                            <td>Все 4 сотрудника выжили. Образовано 2 новых нароста B-1 на правом предплечье (0,8 и 1,2 см). Сотрудник находился в бессознательном состоянии 18 часов. По пробуждении отмечено онемение кожи в зоне наростов.</td>
+                            <td><span class="incident-tag tag-major">Мажор</span></td>
+                        </tr>
+                        <tr>
+                            <td>22.11.2020</td>
+                            <td>Попытка несанкционированного взятия образца крови Блэйка сотрудником ██████. Образец начал агрессивную регенерацию в пробирке, приведшую к разрушению контейнера.</td>
+                            <td>Утечка нейтрализована. Сотрудник ██████ отстранен от должности. Задействован дополнительный способ хранения образцов. Блэйк не применял аномалию - наростов не добавилось.</td>
+                            <td><span class="incident-tag tag-major">Мажор</span></td>
+                        </tr>
+                        <tr>
+                            <td>03.05.2022</td>
+                            <td>Блэйк провел экспериментальную регенерацию тканей, пораженных аномальным патогеном класса ████. Патоген полностью уничтожен.</td>
+                            <td>Открыт потенциал применения Блэйка для нейтрализации биологических аномалий. Образован крупный нарост B-1 на левой лопатке (2,8x1,9 см). Нарост демонстрирует способность к слабому фосфоресцированию при контакте с водой.</td>
+                            <td><span class="incident-tag tag-critical">Критический</span></td>
+                        </tr>
+                        <tr>
+                            <td>18.01.2024</td>
+                            <td>Блэйк провел 6 актов регенерации в течение 48 часов во время массового инцидента в секторе "03-Чарли".</td>
+                            <td>Сотрудник впал в кому на 72 часа. По пробуждении зафиксировано образование кластера из 5 наростов B-1 на правой ключице (0,3-0,7 см) и одного нароста под подбородком (0,4 см). Введено ограничение: не более 2 актов регенерации в неделю. Общая площадь кристаллических образований достигла ██ см2.</td>
+                            <td><span class="incident-tag tag-critical">Критический</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">05</div>
+                <h2>Приложение - Замечания медицинской службы</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="addendum">
+                    <div class="addendum-title">Медицинское заключение No.МС-2024</div>
+                    <div class="quote-block">
+                        "Физиологические показатели Блэйка находятся в пределах нормы. Однако при проведении гистологического анализа зафиксирована аномальная структура митохондрий - они содержат неидентифицированные органеллы, демонстрирующие способность к фотосинтезу-подобному процессу при контакте с поврежденными тканями.
+                        <br><br>
+                        Предположительно, именно это и является механизмом его аномалии. Каждый акт регенерации запускает каскад минерализации в тканях сотрудника: избыточные кальциево-фосфорные соединения, образующиеся в результате аномального метаболизма, кристаллизуются под кожей вместо естественного выведения. Мы наблюдаем своего рода "биологический обмен": здоровье пациента за кристаллический рост Блэйка.
+                        <br><br>
+                        Кристаллы B-1 не поддаются механическому удалению и демонстрируют способность к медленному росту даже без новых актов регенерации. На текущий момент наросты покрывают менее 2% поверхности тела сотрудника, однако при сохранении текущей интенсивности использования аномалии к ████ году данный показатель может достичь 15%.
+                         <br><br>
+                        Рекомендуется продолжить молекулярно-биологические исследования под руководством д-ра Алекса Медицинова. Приоритетной задачей является разработка протокола замедления или остановки роста B-1 без нарушения регенерационных способностей сотрудника. Также рекомендуется разработать синтетический аналог ферментного комплекса FC-01 для снижения нагрузки на Блэйка."
+                        <div class="quote-author">Д-р <span class="data-expunged">███████</span>, ведущий биохимик Зоны 03</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+               <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">06</div>
+                <h2>Приложение - Замечания службы безопасности</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="addendum">
+                    <div class="addendum-title">Оперативная оценка No.СБ-2024</div>
+                    <div class="quote-block">
+                        "Блэйк представляет собой уникальный актив для Зоны 03. Его присутствие в Исследовательском блоке "03-Чарли" существенно снижает летальность при инцидентах, связанных с физическими травмами и биологическими аномалиями. Большинство моих бойцов ему обязаны жизнью - и я не собираюсь забывать об этом. Однако необходимо учитывать критическое ограничение: каждый акт регенерации увеличивает массу кристаллических наростов B-1 на теле сотрудника.
+                        <br><br>
+                        По нашим расчетам, при текущей интенсивности использования кристаллические образования покроют приблизительно 15% поверхности тела Блэйка к ████ году. Долгосрочные последствия данного процесса неизвестны. Рекомендуется строгое соблюдение лимита: не более двух актов регенерации в неделю, за исключением чрезвычайных ситуаций с прямым разрешением директора Зоны или его заместителя.
+                        <br><br>
+                        Кроме того, ферментный комплекс FC-01, выделяемый сотрудником, представляет собой потенциальный объект исследования. Образцы крови и тканей Блэйка, а также фрагменты B-1 должны храниться в условиях повышенной безопасности. Любые попытки несанкционированного взаимодействия с кристаллами сотрудника пресекаются немедленно."
+                        <div class="quote-author">Агент Энтони Фрейзер, заместитель директора по безопасности</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">07</div>
+                <h2>Личное дело сотрудника</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Полное имя</div>
+                        <div class="value">Аллан Блэйк</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Дата рождения</div>
+                        <div class="value">14 марта 1997 года</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Место рождения</div>
+                        <div class="value">███████, Аляска, США</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Образование</div>
+                        <div class="value">Среднее медицинское (фельдшер), <span class="data-expunged">███████</span> колледж</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Дата зачисления в Фонд</div>
+                        <div class="value">7 ноября 2017 года</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Текущий статус</div>
+                        <div class="value highlight">Активный сотрудник / Объект под наблюдением</div>
+                    </div>
+                </div>
+                
+                <div class="addendum">
+                    <div class="addendum-title">Служебная характеристика</div>
+                    <p>Аллан Блэйк зарекомендовал себя как высококвалифицированный и преданный своему делу медицинский работник. Сотрудник демонстрирует исключительное самообладание в кризисных ситуациях и готовность к самопожертвованию ради спасения коллег. Психологическое состояние стабильно, хотя наблюдается тенденция к эмоциональному выгоранию, связанному с осознанием ограниченности собственного биологического ресурса.</p>
+                    
+                    <p>Рекомендуется регулярная психологическая поддержка и ограничение количества актов регенерации в неделю. Сотрудник проявляет интерес к продолжению работы в медицинской службе и выразил готовность к дальнейшему сотрудничеству с Фондом.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">08</div>
+                <h2>Примечание директора Зоны 03</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="quote-block">
+                    "Блэйк - не просто сотрудник. Он - пример того, как аномалия может служить Фонду, а не только представлять угрозу. Его работа в секторе "03-Чарли" уже спасла жизни десятков сотрудников. Однако я настоятельно рекомендую не забывать: он остается объектом под наблюдением. И любой объект может стать неуправляемым.
+                    <br><br>
+                    Наши исследования - шанс сохранить его способности без истощения самого субъекта. Если мы сможем синтезировать FC-01, это изменит подход Фонда к лечению аномальных травм. Но до тех пор - берегите Аллана. Он стоит дороже, чем любой из нас."
+                    <div class="quote-author">[ДАННЫЕ ЗАСЕКРЕЧЕНЫ], Директор Зоны 03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">09</div>
+                <h2>Инцидент НБ-2023</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p><strong>Дата:</strong> 14 сентября 2023 года<br>
+                <strong>Место:</strong> сектор 03-Чарли, Зона легкого содержания (Этаж -2)<br>
+                <strong>Статус:</strong> расследование закрыто</p>
+                
+                <p>14 сентября 2023 года агент ███████, находившийся под воздействием аномального объекта ████, попытался принудительно использовать Блэйка для самолечения. Агент применил служебный нож, причинив сотруднику множественные проникающие ранения в спину (2 раны глубиной до 8 см) и левое бедро (1 рана глубиной до 5 см).</p>
+                
+                <p>Сотрудник был обнаружен в коридоре сектора спустя 6 минут после инцидента. Блэйк находился в сознании, сжимая раны ладонями и демонстрируя признаки глубокого шока. Собственная аномалия сотрудника запустила процесс регенерации поврежденных тканей. Агент ███████ был нейтрализован сотрудниками СБ при попытке вторичного нападения.</p>
+                
+                <div class="warning-box">
+                    <strong>Последствия для Блэйка:</strong> сотрудник полностью восстановлен за 47 минут. Однако в местах ранений образовались новые кристаллические наросты B-1, отличающиеся от всех предыдущих образований. Наросты имеют темный, почти черный цвет с фиолетовым отливом, повышенную плотность (превышающую стандартные образования в 2,3 раза) и демонстрируют ускоренный рост (0,3 мм в месяц против стандартных 0,1 мм). Сотрудник испытывает периодические приступы острой боли в зонах черных наростов, длящиеся 15-40 секунд, без установленной закономерности. Обезболивающие средства оказывают минимальный эффект.
+                </div>
+            </div>
+        </div>
+       
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">10</div>
+                <h2>Инцидент НК-2024</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p><strong>Дата:</strong> 17 июня 2024 года<br>
+                <strong>Место:</strong> сектор 03-Чарли, Зона тяжелого содержания (Этаж -1)<br>
+                <strong>Статус:</strong> расследование закрыто</p>
+                
+                <p>17 июня 2024 года в Зоне тяжелого содержания сектора "03-Чарли" произошло локальное нарушение условий содержания объекта класса Кетер ████. В ходе операции по восстановлению условий содержания пострадали 3 сотрудника СБ и 1 научный сотрудник. Сержант Сандовал, командир звена быстрого реагирования, получил проникающее ранение брюшной полости и множественные осколочные повреждения правой ноги.</p>
+                
+                <p>Блэйк был эвакуирован из зоны инцидента сотрудниками СБ, однако самостоятельно вернулся к месту происшествия, несмотря на прямой запрет лейтенанта. Сотрудник провел экстренную регенерацию сержанта Сандовала и двух сотрудников СБ в течение 34 минут. Третий сотрудник СБ скончался до прибытия Блэйка.</p>
+                
+                <div class="quote-block">
+                    "Пока мы там сандали рвали, пытаясь удержать эту проблядь в ее секторе, ассистентик как ни в чем не бывало прошмыгнул мимо нас. Я ему ору - мол, свали отсюда на хрен. А он такой, спокойный, смотрит мне в глаза и говорит: "Сержант, вы истекаете". Я глянул вниз - а у меня кишки наружу, ебать того все! Я и не заметил, сука, адреналин же. А он просто ложит руки мне на живот, и я чувствую, как что-то внутри тянется, будто мурашки, только изнутри. Через минуту уже сижу, а рана затягивается прямо на глазах. Я и говорю ему: "Ты че, блять, наделал?" А он молчит, просто встает и идет к следующему. Я уже только потом узнал, что у него за это кристаллы выросли. Так что, может, мы ему должны, а не он нам. Хотя, блять, не знаю, я просто благодарен ему."
+                    <div class="quote-author">Сержант Сандовал, агент службы безопасности Зоны 03, показания с камеры наблюдения сектора "03-Чарли"</div>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>Последствия для Блэйка:</strong> в ходе инцидента сотрудник провел 3 акта интенсивной регенерации. Образовано 2 новых кристаллических нароста B-1: один на правой стопе (1,4 см, мутно-белый) и один на левом запястье (0,7 см, с фиолетовым оттенком). Сотрудник отказался от медицинского осмотра в течение 6 часов после инцидента, сославшись на "необходимость прийти в себя". По результатам принудительного осмотра зафиксировано ухудшение психологического состояния: Блэйк демонстрирует признаки посттравматического стресса, включая избегание обсуждения инцидента и повышенную раздражительность при упоминании объекта ████.
+                </div>
+            </div>
+        </div>
+
+                <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">05</div>
+                <h2>Приложение - Решение Совета O5</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="clearance-banner">
+                    УРОВЕНЬ ДОПУСКА 5 - ТАУМИЭЛЬ
+                </div>
+
+                <p><strong>Дата заседания:</strong> 12 февраля 2018 года<br>
+                <strong>Место проведения:</strong> зал заседаний Совета O5, Зона 01<br>
+                <strong>Повестка:</strong> определение статуса объекта USAKUK-Site-03/Блэйк-А. Классификация. Условия содержания и эксплуатации.</p>
+
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">ПРОТОКОЛ ЗАСЕДАНИЯ O5-██-2018</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Итак. Объект обнаружен, доставлен, обследован. Предлагаю приступить к голосованию. Содержание в режиме совместного функционирования. Возражения?</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Есть. Я возражаю. Мы имеем дело с биологической аномалией неустановленного происхождения, способной к ускоренной регенерации чужеродных тканей. Совместное функционирование - ошибка.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Обоснуй.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Объект непредсказуем. Его аномалия активируется при контакте. Мы не знаем механизма, не контролируем процесс, не понимаем долгосрочных последствий. Сегодня он лечит наших агентов - завтра он может стать вектором заражения. Или хуже.</div>
+                        <div class="terminal-line"><span class="prompt">O5-11 ></span> Согласен с коллегой. Фонд не должен полагаться на непроверенные аномалии. У нас есть SCP-500 для экстренных случаев. Зачем нам еще один объект с непредсказуемыми свойствами?</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> SCP-500 ограничен пятьюдесятью таблетками, и мы оба знаем, сколько их осталось. Блэйк - возобновляемый ресурс.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Возобновляемый? Каждый акт регенерации вызывает кристаллизацию его собственных тканей. Мы не знаем, что произойдет, когда кристаллы покроют критическую массу тела. Объект может погибнуть. Или трансформироваться. Или стать чем-то совершенно другим. Мы не знаем. И не зная — не можем рисковать.</div>
+                        <div class="terminal-line"><span class="prompt">O5-9 ></span> Если позволите. Я прочитал медицинское заключение. Регенерация - контролируемый процесс. Объект осознает свои способности, может управлять ими. Это не SCP-049, который действует по непостижимой логике. Это человек, который хочет помогать. И помогает.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Хочет помогать. Сегодня. А завтра? Мы все видели, что происходит с объектами, которые "хотят помогать". SCP-073 тоже хотел помогать. Посмотрите, к чему это привело.</div>
+                        <div class="terminal-line"><span class="prompt">O5-5 ></span> Неуместное сравнение. SCP-073 - совершенно другой класс аномалии. Блэйк - гуманоид с биологической мутацией. Он не бессмертен, не всесилен, не обладает когнитивными угрозами. Его единственная опасность - непредсказуемость долгосрочных эффектов.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Что и требует изоляции. Поместить его в стандартную камеру содержания, проводить исследования в контролируемых условиях. Никакого совместного функционирования. Никакого доступа к персоналу.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> И что мы получим? Еще один объект в камере, который мы будем изучать десятилетиями без практического применения. У нас уже есть сотни таких. А Блэйк может спасать жизни прямо сейчас.</div>
+                        <div class="terminal-line"><span class="prompt">O5-11 ></span> Жизни агентов СБ. Которые сами пошли на риск, подписав контракт. Мы не обязаны ставить под угрозу безопасность Фонда ради спасения каждого рядового.</div>
+                        <div class="terminal-line"><span class="prompt">O5-9 ></span> С уважением, коллега, но это звучит как оправдание. Мы теряем десятки агентов ежегодно из-за аномальных травм, которые Блэйк мог бы вылечить. SCP-500 мы бережем для катастроф. А Блэйк - для оперативной медпомощи. Это разные ниши.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Ниши. Хорошо. А что, если его похитят? ГОК? Повстанцы? Объект с такими способностями - мишень номер один для любой группы интересов. И если они его получат - мы потеряем не только актив, но и получим врага с возможностью массового лечения своих сил.</div>
+                        <div class="terminal-line"><span class="prompt">O5-5 ></span> Это аргумент за усиленную охрану, а не за изоляцию. Согласен с O5-7 в части риска похищения. Предлагаю: содержание в изолированном секторе, усиленная охрана, ограничение контактов. Но не полная изоляция.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Уже предусмотрено. Зона 03 готова выделить отдельный сектор, камеру содержания, совмещенную с медблоком. Двухфакторная идентификация, постоянное наблюдение, сопровождение агентами СБ при любых перемещениях.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Это не решает проблему кристаллизации. Мы не знаем, что произойдет при достижении критической массы. Объект может стать нестабильным. Или агрессивным. Или...</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Или ничего не произойдет. Или мы синтезируем FC-01 до того, как кристаллы достигнут критической массы. Или мы найдем способ остановить их рост. Мы не знаем. Но мы точно не узнаем, если запрем его в камеру и будем ждать.</div>
+                        <div class="terminal-line"><span class="prompt">O5-9 ></span> Еще один момент. Объект — доброволец. Он согласился на сотрудничество. Если мы его изолируем, мы нарушим доверие. И потеряем не только актив, но и потенциальный источник информации о его собственной аномалии. Никто не знает его тело лучше, чем он сам.</div>
+                        <div class="terminal-line"><span class="prompt">O5-11 ></span> Доверие. Трогательно. Мы Фонд, а не благотворительная организация.</div>
+                        <div class="terminal-line"><span class="prompt">O5-5 ></span> И все же. Комитет по этике. Они уже выразили обеспокоенность. Изоляция добровольца без веских оснований - нарушение наших же протоколов. Блэйк не демонстрировал агрессии, не пытался сбежать, не скрывал информацию. Единственная его "вина" - аномальность, которую он не выбирал.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Комитет. Конечно. Давайте спросим у них, что делать, если объект трансформируется и уничтожит половину Зоны.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Давайте не будем апеллировать к гипотетическим сценариям. У нас есть факты. Факт: аномалия контролируема. Факт: объект лоялен. Факт: его применение снижает летальность на 34% в секторе 03-Чарли. Факт: кристаллизация медленная и, вероятно, обратима при синтезе FC-01. Я предлагаю принять решение: совместное функционирование под строгим контролем Совета и Совета этики.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Комитет по этике. Вы серьезно?</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Абсолютно. Комитет будет контролировать условия содержания, ограничивать интенсивность использования аномалии и защищать права объекта. Совет O5 - военно-оперативный контроль и протоколы безопасности. Двойной надзор. Ни одно решение о применении Блэйка не будет принято без согласования обеих сторон.</div>
+                        <div class="terminal-line"><span class="prompt">O5-9 ></span> Разумный компромисс. Поддерживаю.</div>
+                        <div class="terminal-line"><span class="prompt">O5-5 ></span> Поддерживаю. Условие: ежеквартальные отчеты о состоянии объекта. При ускорении кристаллизации - немедленное пересмотрение статуса.</div>
+                        <div class="terminal-line"><span class="prompt">O5-11 ></span> Воздержусь. Не убежден, но не буду блокировать.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> ...Хорошо. При условии, что Комитет по этике будет иметь право вето на любое решение, связанное с применением объекта. И что при достижении 10% кристаллизации статус будет автоматически пересмотрен. И что объект никогда, слышите, никогда не покинет пределы Зоны 03 без прямого разрешения Совета O5 в полном составе. Только при этих условиях - поддерживаю.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Принято. Условия O5-7 вносятся в протокол. Голосование: совместное функционирование объекта USAKUK-Site-03/Блэйк-А под двойным контролем Совета O5 и Совета этики. Кто за?</div>
+                        <div class="terminal-line"><span class="prompt">[СИСТЕМА] ></span> O5-3: ЗА. O5-5: ЗА. O5-7: ЗА (с условиями). O5-9: ЗА. O5-11: ВОЗДЕРЖАЛСЯ. Остальные члены: голосование по защищенному каналу. Итог: РЕШЕНИЕ ПРИНЯТО.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Объект USAKUK-Site-03/Блэйк-А. Класс: Евклид. Статус: совместное функционирование. Условия: изолированное содержание в секторе 03-Чарли, двойной контроль Совета O5 и Совета этики, ограничение актов регенерации, ежеквартальные отчеты, автоматический пересмотр статуса при 10% кристаллизации. Протокол закрыт.</div>
+                    </div>
+                </div>
+
+                <div class="addendum">
+                    <div class="addendum-title">Постановление Комитета по этике</div>
+                    <div class="quote-block">
+                        "Комитет одобряет решение о совместном функционировании объекта USAKUK-Site-03/Блэйк-А при соблюдении следующих условий:
+                        <br><br>
+                        1. Объект не может быть использован в качестве одноразового ресурса. Каждый акт регенерации должен быть обоснован медицинской необходимостью и санкционирован не ниже заместителя директора по медицине.
+                        <br><br>
+                        2. Объект имеет право на отказ. Никакое принуждение к активации аномалии не допускается. Любое принудительное применение будет расцениваться как нарушение прав гуманоида и преследоваться по всей строгости протоколов Фонда.
+                        <br><br>
+                        3. Объект имеет право на психологическую поддержку, медицинское обслуживание и социальную адаптацию. Его статус как сотрудника Фонда не отменяет его статуса как человека.
+                        <br><br>
+                        4. При достижении 10% кристаллизации тела Комитет по этике инициирует экстренное заседание с целью пересмотра условий содержания. Приоритет: сохранение жизни и здоровья объекта.
+                        <br><br>
+                        5. Любые исследования, связанные с извлечением образцов тканей, крови или кристаллов B-1, проводятся только с письменного согласия объекта и под наблюдением представителя Совета этики.
+                        <br><br>
+                        Комитет по этике будет осуществлять постоянный мониторинг условий содержания объекта и готов вмешаться в случае нарушения вышеуказанных положений."
+                        <div class="quote-author">Председатель Комитета по Этике, Зона 01</div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Примечание для персонала с уровнем допуска 4:</strong> решение Совета O5 и постановление Комитета по этике являются обязательными для исполнения всеми сотрудниками Зоны 03. Любое нарушение условий содержания объекта USAKUK-Site-03/Блэйк-А, включая несанкционированное принуждение к активации аномалии, попытку извлечения образцов без согласия или угрозу физической расправы, карается немедленным отстранением от должности и передачей в распоряжение Отдела внутренней безопасности. Объект находится под защитой Совета O5. Забудьте об этом - на свой страх и риск.
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="scp-footer">
+        <div class="footer-line">ФОНД SCP - АЛЯСКИНСКОЕ УЧРЕЖДЕНИЕ ИССЛЕДОВАНИЯ, СОДЕРЖАНИЯ И РАЗРАБОТОК</div>
+        <div class="footer-line">Идентификационный код: USAKUK-Site-03 | Расположение: вблизи реки Юкон, Юкон-Коюкук, штат Аляска, США</div>
+        <div class="footer-line">Прикрытие: ГНИИ "Медицинская гидробиология Юкон" при компании "Sustainable Chemical Products"</div>
+    </footer>
+
+    <script>
+        function toggleSection(header) {
+            const body = header.nextElementSibling;
+            const toggle = header.querySelector('.toggle');
+            
+            if (body.classList.contains('collapsed')) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+                toggle.textContent = 'v';
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+                toggle.textContent = '>';
+            }
+        }
+        
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const banner = document.querySelector('.security-banner');
+            banner.style.transform = 'translateY(' + (scrolled * 0.1) + 'px)';
+        });
+    </script>
+
+</body>
+</html>
