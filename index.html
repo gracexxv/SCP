@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP-2741 | Фонд SCP</title>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* ——— Backgrounds ——— */
+            --bg-page:        #121214;
+            --bg-card:        #1a1a1e;
+            --bg-card-hover:  #1f1f24;
+            --bg-elevated:    #222228;
+            --bg-terminal:    #0d0d10;
+
+            /* ——— Text ——— */
+            --text-primary:   #e2e2e8;
+            --text-secondary: #a0a0ac;
+            --text-muted:     #6e6e7a;
+            --text-heading:   #f0f0f5;
+
+            /* ——— Accents ——— */
+            --accent-red:     #c0392b;
+            --accent-red-dim: #8b2a1f;
+            --accent-amber:   #d4a017;
+            --accent-green:   #27ae60;
+            --accent-blue:    #4a90d9;
+            --accent-euclid:  #d4892a;
+
+            /* ——— Borders ——— */
+            --border-subtle:  #2a2a32;
+            --border-medium:  #353540;
+            --border-strong:  #40404c;
+
+            /* ——— Spacing scale ——— */
+            --space-xs:  4px;
+            --space-sm:  8px;
+            --space-md:  16px;
+            --space-lg:  24px;
+            --space-xl:  32px;
+            --space-2xl: 48px;
+
+            /* ——— Typography ——— */
+            --font-body:    'PT Serif', Georgia, 'Times New Roman', serif;
+            --font-ui:      'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono:    'Roboto Mono', 'SF Mono', 'Fira Code', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            line-height: 1.75;
+            font-size: 17px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .scp-header {
+            background: var(--bg-terminal);
+            border-bottom: 2px solid var(--accent-red-dim);
+            padding: 0;
+            position: relative;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .scp-logo-text h1 {
+            font-family: var(--font-mono);
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-heading);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .scp-logo-text .subtitle {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: var(--space-xs);
+        }
+
+        .scp-nav {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .scp-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.25s ease;
+            position: relative;
+        }
+
+        .scp-nav a:hover {
+            color: var(--accent-red);
+        }
+
+        /* ============================================================
+           SECURITY BANNER
+           ============================================================ */
+        .security-banner {
+            background: var(--accent-red-dim);
+            padding: 10px;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--accent-red);
+        }
+
+        .security-banner .blink {
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* ============================================================
+           MAIN CONTAINER
+           ============================================================ */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-xl);
+        }
+
+        /* ============================================================
+           SCP HEADER BLOCK (Item #, Object Class)
+           ============================================================ */
+        .scp-header-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--accent-euclid);
+            padding: var(--space-xl) var(--space-xl);
+            margin-bottom: var(--space-xl);
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .scp-item-number {
+            font-family: var(--font-mono);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: var(--space-md);
+            letter-spacing: 2px;
+        }
+
+        .scp-object-class {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--accent-euclid);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
+        .scp-object-class::before {
+            content: 'Класс объекта: ';
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           SECTION HEADERS (Standard SCP format)
+           ============================================================ */
+        .scp-section-title {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-heading);
+            font-weight: 600;
+            margin: var(--space-2xl) 0 var(--space-lg) 0;
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--accent-euclid);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .scp-section-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-euclid);
+            border-radius: 1px;
+        }
+
+        .scp-section-body {
+            margin-bottom: var(--space-xl);
+        }
+
+        .scp-section-body p {
+            margin-bottom: var(--space-md);
+            text-align: justify;
+            color: var(--text-primary);
+        }
+
+        .scp-section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .scp-section-body strong {
+            color: var(--text-heading);
+            font-weight: 700;
+        }
+
+        .scp-section-body ul {
+            margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+            padding-left: var(--space-md);
+        }
+
+        .scp-section-body li {
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           COLLAPSIBLE ADDENDA
+           ============================================================ */
+        .addendum {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            margin-bottom: var(--space-lg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .addendum-header {
+            background: var(--bg-elevated);
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            user-select: none;
+        }
+
+        .addendum-header:hover {
+            background: #2a2a32;
+        }
+
+        .addendum-header .icon {
+            width: 26px;
+            height: 26px;
+            background: var(--accent-euclid);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: #fff;
+            flex-shrink: 0;
+            font-weight: 500;
+        }
+
+        .addendum-header h3 {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-heading);
+            font-weight: 500;
+        }
+
+        .addendum-header .toggle {
+            margin-left: auto;
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: transform 0.25s ease;
+            font-family: var(--font-mono);
+        }
+
+        .addendum-header.collapsed .toggle {
+            transform: rotate(-90deg);
+        }
+
+        .addendum-body {
+            padding: var(--space-xl);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .addendum-body.collapsed {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================================
+           REDACTED / EXPUNGED
+           ============================================================ */
+        .redacted {
+            background: #0a0a0c;
+            color: transparent;
+            padding: 1px 5px;
+            border-radius: 2px;
+            cursor: help;
+            transition: all 0.2s ease;
+            border: 1px solid #1a1a1e;
+        }
+
+        .redacted:hover {
+            background: var(--accent-red-dim);
+            color: rgba(255,255,255,0.9);
+            border-color: var(--accent-red);
+        }
+
+        .data-expunged {
+            background: repeating-linear-gradient(
+                90deg,
+                #0a0a0c,
+                #0a0a0c 4px,
+                #141418 4px,
+                #141418 8px
+            );
+            color: var(--text-muted);
+            padding: 2px 8px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================================
+           WARNING BOX
+           ============================================================ */
+        .warning-box {
+            background: rgba(192, 57, 43, 0.06);
+            border: 1px solid rgba(192, 57, 43, 0.25);
+            border-left: 3px solid var(--accent-red);
+            padding: var(--space-lg) var(--space-xl);
+            margin: var(--space-lg) 0;
+            position: relative;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .warning-box::before {
+            content: '!';
+            position: absolute;
+            top: -10px;
+            left: 14px;
+            background: var(--accent-red-dim);
+            color: #fff;
+            font-size: 12px;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-family: var(--font-mono);
+            font-weight: 700;
+        }
+
+        .warning-box strong {
+            color: var(--accent-red);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 11px;
+        }
+
+        /* ============================================================
+           NOTICE BOX
+           ============================================================ */
+        .notice-box {
+            background: rgba(74, 144, 217, 0.04);
+            border: 1px solid rgba(74, 144, 217, 0.18);
+            border-left: 3px solid var(--accent-blue);
+            padding: var(--space-lg) var(--space-xl);
+            margin: var(--space-lg) 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .notice-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-title::before {
+            content: '*';
+        }
+
+        /* ============================================================
+           QUOTE BLOCK
+           ============================================================ */
+        .quote-block {
+            background: rgba(255, 255, 255, 0.025);
+            border-left: 3px solid var(--border-medium);
+            padding: var(--space-lg) var(--space-xl);
+            margin: var(--space-lg) 0;
+            font-style: italic;
+            position: relative;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .quote-block::before {
+            content: '"';
+            position: absolute;
+            top: 4px;
+            left: 12px;
+            font-size: 36px;
+            color: var(--border-medium);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .quote-author {
+            margin-top: var(--space-md);
+            font-style: normal;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .quote-author::before {
+            content: '— ';
+        }
+
+        /* ============================================================
+           INCIDENT TABLE
+           ============================================================ */
+        .incident-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: var(--space-lg) 0;
+            font-size: 14px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .incident-table th {
+            background: var(--bg-elevated);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            border-bottom: 2px solid var(--border-medium);
+            font-weight: 500;
+        }
+
+        .incident-table td {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-subtle);
+            vertical-align: top;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .incident-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .incident-table tr:hover td {
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .incident-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            margin-right: 4px;
+            font-weight: 500;
+        }
+
+        .tag-critical { background: rgba(231, 76, 60, 0.12); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.3); }
+        .tag-major    { background: rgba(230, 126, 34, 0.12); color: #e67e22; border: 1px solid rgba(230, 126, 34, 0.3); }
+        .tag-minor    { background: rgba(46, 204, 113, 0.10); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.25); }
+
+        /* ============================================================
+           TERMINAL
+           ============================================================ */
+        .terminal-container {
+            background: var(--bg-terminal);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            margin: var(--space-lg) 0;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: var(--bg-elevated);
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .terminal-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .terminal-dot.red    { background: var(--accent-red); }
+        .terminal-dot.yellow { background: var(--accent-amber); }
+        .terminal-dot.green  { background: var(--accent-green); }
+
+        .terminal-title {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-left: 8px;
+            letter-spacing: 1px;
+        }
+
+        .terminal-body {
+            padding: var(--space-md) var(--space-lg);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--accent-green);
+        }
+
+        .terminal-line {
+            margin: 4px 0;
+        }
+
+        .terminal-line .prompt {
+            color: var(--accent-red);
+        }
+
+        /* ============================================================
+           INFO GRID
+           ============================================================ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .info-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 4px;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .info-box:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-medium);
+        }
+
+        .info-box .label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-box .label::before {
+            content: '>';
+            color: var(--accent-euclid);
+            font-size: 9px;
+        }
+
+        .info-box .value {
+            font-size: 15px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .info-box .value.highlight {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-family: var(--font-ui);
+        }
+
+        /* ============================================================
+           CLEARANCE BANNER
+           ============================================================ */
+        .clearance-banner {
+            background: linear-gradient(90deg, var(--accent-red-dim), #5c1a14, var(--accent-red-dim));
+            background-size: 200% 100%;
+            animation: gradient-shift 4s ease infinite;
+            padding: 10px;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: var(--space-lg);
+            border: 1px solid rgba(192, 57, 43, 0.4);
+            border-radius: 4px;
+        }
+
+        @keyframes gradient-shift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .scp-footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-subtle);
+            padding: var(--space-xl);
+            text-align: center;
+            margin-top: var(--space-2xl);
+        }
+
+        .scp-footer .footer-line {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+
+        .scp-footer .footer-classified {
+            color: var(--accent-red);
+            font-weight: 500;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-page);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                text-align: center;
+                padding: var(--space-md);
+            }
+
+            .scp-nav {
+                justify-content: center;
+                gap: var(--space-md);
+            }
+
+            .scp-item-number {
+                font-size: 22px;
+            }
+
+            .main-container {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .scp-section-body,
+            .addendum-body {
+                padding: var(--space-md);
+            }
+
+            body {
+                font-size: 16px;
+            }
+        }
+
+        /* ============================================================
+           UTILITY
+           ============================================================ */
+        .text-accent { color: var(--accent-euclid); font-weight: 600; }
+
+                /* ============================================================
+           OBJECT HEADER (for personnel file format)
+           ============================================================ */
+        .object-header {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--accent-euclid);
+            padding: var(--space-xl) var(--space-xl);
+            margin-bottom: var(--space-xl);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .object-number {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .object-name {
+            font-family: var(--font-ui);
+            font-size: 24px;
+            color: var(--text-heading);
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           COLLAPSIBLE SECTIONS
+           ============================================================ */
+        .section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            margin-bottom: var(--space-lg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--bg-elevated);
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            user-select: none;
+        }
+
+        .section-header:hover {
+            background: #2a2a32;
+        }
+
+        .section-header .icon {
+            width: 26px;
+            height: 26px;
+            background: var(--accent-euclid);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: #fff;
+            flex-shrink: 0;
+            font-weight: 500;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-heading);
+            font-weight: 500;
+        }
+
+        .section-header .toggle {
+            margin-left: auto;
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: transform 0.25s ease;
+            font-family: var(--font-mono);
+        }
+
+        .section-header.collapsed .toggle {
+            transform: rotate(-90deg);
+        }
+
+        .section-body {
+            padding: var(--space-xl);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-body.collapsed {
+            display: none;
+        }
+
+        .section-body p {
+            margin-bottom: var(--space-md);
+            text-align: justify;
+            color: var(--text-primary);
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-body ul {
+            margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+            padding-left: var(--space-md);
+        }
+
+        .section-body li {
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           ADDENDUM TITLE
+           ============================================================ */
+        .addendum-title {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-euclid);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+                /* ============================================================
+           AUTHOR WATERMARK
+           ============================================================ */
+        body::after {
+            content: 'AUTHOR: coup de grâce';
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.03);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 9999;
+            user-select: none;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="security-banner">
+        | ЗОНА 03 - USAKUK-Site-03 |
+    </div>
+
+    <header class="scp-header">
+        <div class="header-inner">
+            <div class="scp-logo">
+                <div class="scp-logo-text">
+                    <h1>Фонд SCP</h1>
+                    <div class="subtitle">Secure. Contain. Protect.</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <div class="scp-header-block">
+            <div class="scp-item-number">SCP-2741</div>
+            <div class="scp-object-class">Евклид</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="label">Обозначение</div>
+                <div class="value">Кристалл</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Местоположение</div>
+                <div class="value">Сектор 03-Чарли, камера содержания C-2</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Уровень угрозы</div>
+                <div class="value highlight">Минимальный</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Ответственный исследователь</div>
+                <div class="value">Д-р Энтони Гибсон, заместитель директора по исследованиям</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Минимальный уровень допуска</div>
+                <div class="value">2 (И)</div>
+            </div>
+            <div class="info-box">
+                <div class="label">Статус содержания</div>
+                <div class="value highlight">Стабильный</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">01</div>
+                <h2>Особые условия содержания</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p>SCP-2741 содержится в стандартной гуманоидной камере типа C-2 сектора 03-Чарли. Камера оборудована медицинским блоком для проведения санкционированных процедур.</p>
+                <p><strong>Примечание:</strong> SCP-2741 вправе запросить выход на прогулку по территории сектора 03-Чарли в любое время суток. Решение о необходимости сопровождения агентами СБ принимается командиром внутреннего подразделения службы безопасности. В штатных условиях, при стабильном состоянии объекта и отсутствии чрезвычайных ситуаций в секторе, прогулки могут проводиться без непосредственного сопровождения - под дистанционным наблюдением системы видеонаблюдения сектора.</p>
+                <p>При взаимодействии с SCP-2741 персонал обязан соблюдать следующие протоколы:</p>
+                
+                <ul>
+                    <li>активация аномалии возможна <strong>только при прямом контакте с кожей субъекта</strong>. Для предотвращения несанкционированной активации SCP-2741 обязан носить изолирующие перчатки класса III-A (аномально-стойкие) во всех ситуациях, не связанных с санкционированным медицинским вмешательством;</li>
+                    <li>любые изменения в физиологическом состоянии SCP-2741 должны быть немедленно задокументированы и переданы д-ру Алексу Медицинову;</li>
+                    <li>SCP-2741 обязан сообщать о любых соматических ощущениях, выходящих за рамки нормы, в течение 15 минут.</li>
+                </ul>
+                
+                <p><strong>Дополнительные ограничения:</strong> активация аномалии происходит <strong>только при сознательном решении объекта</strong>. SCP-2741 демонстрирует полный контроль над процессом: способен выбирать, какие ткани регенерировать, в каком объеме и с какой интенсивностью. Однако при длительном физическом контакте (более 90 секунд) с поврежденными тканями аномалия начинает протекать автономно, вне зависимости от воли объекта. Именно поэтому перчатки являются обязательным элементом экипировки, а не мерой гигиены.</p>
+                
+                <div class="warning-box">
+                    <strong>ВНИМАНИЕ:</strong> при достижении 10% кристаллизации поверхности тела SCP-2741 статус содержания подлежит немедленному пересмотру. Текущий показатель кристаллизации: ██.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">02</div>
+                <h2>Описание</h2>   
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p>SCP-2741 - гуманоид мужского пола, 29 лет, рост 176 см, вес 63 кг. Объект обнаружен 7 ноября 2017 года в городе ███████, Аляска, в ходе оперативного реагирования на аномальную активность. До захвата Фондом объект работал фельдшером скорой помощи.</p>
+                
+                <p><strong>Внешние особенности:</strong></p>
+                
+                <ul>
+                    <li><strong>глаза:</strong> серо-голубого цвета с выраженной гетерохромией - левый зрачок имеет приглушенный золотистый оттенок, который усиливается при активации аномалии. При регенерации чужеродных тканей оба зрачка расширяются несимметрично, а склеры приобретают легкий зеленоватый оттенок, сохраняющийся 10-15 минут после контакта.</li>
+                    <li><strong>кожа:</strong> бледная, почти восковая текстура. При дневном свете на предплечьях и шее видны едва различимые узоры, напоминающие капиллярную сеть, но с геометрически правильным строением. Узоры становятся заметно ярче при повышенной физической нагрузке или стрессе.</li>
+                    <li><strong>волосы:</strong> темно-русые с проседью у висков, несмотря на возраст. Отдельные пряди при прямом солнечном свете отбрасывают слабое фосфоресцирование голубоватого спектра, зафиксированное только при съемке в инфракрасном диапазоне.</li>
+                    <li><strong>руки:</strong> ладони и кончики пальцев постоянно холодные (28-30 -C), независимо от окружающей температуры. На подушечках пальцев отсутствуют привычные дерматоглифические узоры - вместо них наблюдается сплошная микрорельефная сетка, напоминающая структуру листовой вены.</li>
+                    <li><strong>шрамы:</strong> на левом боку, под ребрами, присутствует вытянутое образование размером 8x3 см, напоминающее зажившую ожоговую рану. Объект не помнит его происхождение. При УЗИ под образованием обнаружена плотная ткань неустановленного происхождения, не совпадающая ни с одним известным типом человеческой ткани.</li>
+                    <li><strong>телосложение:</strong> атлетическое, сухое, с явными признаками прогрессирующей кристаллизации мягких тканей и скелета. Плотность мышечных волокон возрастает за счет медленного замещения межклеточного матрикса кристаллическими включениями B-1. Объект демонстрирует силу хвата в 340 Н при массе 63 кг, что значительно превышает физиологическую норму для данного телосложения. Костная ткань уплотнена. При механическом воздействии (падение с высоты до 4 метров, удар тупым предметом) кристаллизованные участки поглощают энергию деформации. Кожа полупрозрачна - в сумерках просвечивают не только вены, но и кристаллические прожилки, уходящие глубже в ткани.</li>
+                </ul>
+                
+                <p><strong>Кристаллические наросты (особая отметка B-1):</strong></p>
+                
+                <p>В ходе наблюдений выявлено, что SCP-2741 не подвержен естественному старению в привычном понимании. Вместо этого каждый акт регенерации чужеродных тканей вызывает образование твердых кристаллических наростов на теле объекта. На текущий момент наросты локализованы в следующих зонах:</p>
+                
+                <ul>
+                    <li><strong>правое предплечье:</strong> три нароста диаметром 0,5-1,2 см, расположенные линейно от локтевого сгиба к запястью. Кристаллы полупрозрачные, с легким голубоватым оттенком, напоминают застывший лед. При пальпации теплые на ощупь, несмотря на общую холодность конечностей объекта. Под микроскопом видна слоистая структура, аналогичная дендритным кристаллам, но с биологическим матриксом между слоями.</li>
+                    <li><strong>левая лопатка:</strong> один крупный нарост размером 2,8x1,9 см, имеющий форму неправильного многогранника. Поверхность гладкая, зеркально отражает свет. При контакте с водой кристалл начинает слабо светиться холодным белым светом, интенсивность которого коррелирует с временем, прошедшим с последнего акта регенерации.</li>
+                    <li><strong>правая ключица:</strong> кластер из пяти мелких наростов (0,3-0,7 см), сросшихся основанием в форме полумесяца. Цвет кристаллов - мутно-белый с прожилками темно-серого. При рентгенографии внутри наростов видны полые каналы, заполненные жидкостью, идентичной по составу цереброспинальной жидкости человека.</li>
+                    <li><strong>подбородок:</strong> один нарост диаметром 0,4 см, почти полностью скрытый под кожей. Виден как небольшое выпуклое уплотнение. Объект испытывает легкий дискомфорт при надавливании. Кристалл имеет янтарно-желтый цвет и фрактальную структуру при изучении под электронным микроскопом.</li>
+                    <li><strong>спина и левое бедро:</strong> образования темного, почти черного цвета с фиолетовым отливом, возникшие после инцидента INC-TRM-2023. Повышенная плотность, ускоренный рост (0,3 мм в месяц против стандартных 0,1 мм). Объект испытывает периодические приступы острой боли в зонах черных наростов.</li>
+                    <li><strong>правая стопа:</strong> один нарост 1,4 см, мутно-белый.</li>
+                    <li><strong>левое запястье:</strong> один нарост 0,7 см, с фиолетовым оттенком.</li>
+                </ul>
+                
+                <p>Гистологический анализ образцов B-1 показал, что кристаллы состоят из гибридной органо-минеральной матрицы: 67% - неидентифицированный кальциево-фосфорный соединение, 23% - белковые структуры, сходные с коллагеном типа IV, 10% - органические соединения неустановленного происхождения. Кристаллы не поддаются механическому удалению без повреждения окружающих тканей и демонстрируют способность к медленному росту (приблизительно 0,1 мм в месяц).</p>
+                
+                <p>SCP-2741 двигается медленно, с характерной плавностью, напоминающей подводное плавание. При длительном наблюдении (более 3 минут непрерывного зрительного контакта) у наблюдателей возникает ощущение, что кожа объекта слегка пульсирует в такт собственному сердцебиению наблюдателя. Данный эффект не поддается физическому объяснению.</p>
+                
+                <p><strong>Основное аномальное свойство SCP-2741</strong> заключается в способности к <span class="text-accent">биологической регенерации чужеродных тканей</span> через прямой физический контакт. При соприкосновении с поврежденными тканями другого организма (человека или животного) клетки SCP-2741 начинают выделять неидентифицированный ферментный комплекс (временное обозначение: FC-01), который стимулирует ускоренную регенерацию поврежденных тканей с коэффициентом ускорения от 8x до 47x по сравнению с естественной регенерацией.</p>
+                
+                <p>Проявления аномалии включают:</p>
+                
+                <ul>
+                    <li><strong>ускоренное заживление ран:</strong> поверхностные порезы заживают за 15-30 секунд, глубокие тканевые повреждения - за 2-5 минут.</li>
+                    <li><strong>регенерация органов:</strong> при прямом контакте объекта с поврежденным органом наблюдается восстановление функциональности органа в течение 12-48 часов. Полная регенерация утраченной конечности на текущий момент не зафиксирована - максимальный зарегистрированный результат: восстановление 73% массы утраченной ткани при контакте длительностью 4 часа 12 минут.</li>
+                    <li><strong>удаление зараженных тканей:</strong> ферментный комплекс способен денатурировать и вытеснять некротические, зараженные аномальными патогенами или онкологически измененные ткани, заменяя их здоровыми аналогами. Однако данный процесс требует значительно больших энергетических затрат и ускоряет рост кристаллов B-1 в 1,8-2,3 раза.</li>
+                    <li><strong>нейтрализация токсинов:</strong> ферментный комплекс способен денатурировать широкий спектр биологических токсинов, включая аномальные.</li>
+                    <li><strong>подавление аномальных инфекций:</strong> при контакте с тканями, зараженными аномальными патогенами, наблюдается полное уничтожение патогена в 73% случаев.</li>
+                </ul>
+                
+                <p>Гистологический анализ тканей SCP-2741 выявил наличие неидентифицированных митохондрий с аномальной структурой мембраны. Данные митохондрии демонстрируют способность к фотосинтезу-подобному процессу при контакте с поврежденными тканями, выделяя огромное количество АТФ (до ████ моль/сек на клетку), что и обеспечивает ускоренную регенерацию. Предположительно, избыточные минеральные соединения, образующиеся в результате данного метаболизма, и являются строительным материалом для кристаллов B-1.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">03</div>
+                <h2>История обнаружения</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p>SCP-2741 был обнаружен 7 ноября 2017 года в ходе оперативного реагирования на аномальную активность в городе ███████, Аляска. Местные медицинские учреждения зафиксировали серию "невозможных" случаев выздоровления пациентов с терминальными диагнозами после посещения одного и того же фельдшера скорой помощи - Аллана Блэйка.</p>
+                
+                <p>Ключевой инцидент произошел 3 ноября 2017 года: пациент с множественными проникающими ранениями грудной клетки, доставленный в критическом состоянии, полностью выздоровел в течение 6 часов после того, как фельдшер Блэйк провел с ним 45 минут в машине скорой помощи. Медицинская карта пациента была изъята, сам пациент помещен под наблюдение Фонда.</p>
+                
+                <p>Агенты Фонда провели стандартную процедуру захвата и допроса. В ходе интервью выяснилось, что Блэйк осознает свое аномальное влияние с 2014 года, когда во время стажировки в ███████ он спонтанно вылечил черепно-мозговую травму у коллеги. Объект добровольно согласился на сотрудничество с Фондом при условии сохранения жизни.</p>
+                
+                <p>После проведения полного медицинского обследования в Медицинском блоке Зоны 03 объект был помещен в камеру содержания C-2 сектора 03-Чарли.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">04</div>
+                <h2>Журнал инцидентов</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <table class="incident-table">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Инцидент</th>
+                            <th>Последствия</th>
+                            <th>Класс</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>14.03.2018</td>
+                            <td>SCP-2741 провел регенерацию тканей субъекта D-8432 после контакта с █████. Субъект полностью восстановлен.</td>
+                            <td>Сформирован первый кристаллический нарост B-1 на правом предплечье объекта (диаметр 0,3 см). Проведен дополнительный медосмотр.</td>
+                            <td><span class="incident-tag tag-minor">Минор</span></td>
+                        </tr>
+                        <tr>
+                            <td>09.07.2019</td>
+                            <td>Во время нарушения условий содержания SCP-███ в Зоне тяжелого содержания сектора "03-Чарли" пострадали 4 агента СБ. SCP-2741 провел экстренную регенерацию по прямому приказу д-ра Медицинова.</td>
+                            <td>Все 4 агента выжили. Образовано 2 новых нароста B-1 на правом предплечье объекта (0,8 и 1,2 см). SCP-2741 находился в бессознательном состоянии 18 часов. По пробуждении отмечено онемение кожи в зоне наростов.</td>
+                            <td><span class="incident-tag tag-major">Мажор</span></td>
+                        </tr>
+                        <tr>
+                            <td>22.11.2020</td>
+                            <td>Попытка несанкционированного взятия образца крови SCP-2741 сотрудником ██████. Образец начал агрессивную регенерацию в пробирке, приведшую к разрушению контейнера.</td>
+                            <td>Утечка нейтрализована. Сотрудник ██████ отстранен от должности. Задействован дополнительный способ хранения образцов. SCP-2741 не применял аномалию - наростов не добавилось.</td>
+                            <td><span class="incident-tag tag-major">Мажор</span></td>
+                        </tr>
+                        <tr>
+                            <td>03.05.2022</td>
+                            <td>По санкции Совета O5 проведена экспериментальная регенерация тканей, пораженных аномальным патогеном класса ████. Патоген полностью уничтожен.</td>
+                            <td>Открыт потенциал применения SCP-2741 для нейтрализации биологических аномалий. Образован крупный нарост B-1 на левой лопатке объекта (2,8x1,9 см). Нарост демонстрирует способность к слабому фосфоресцированию при контакте с водой.</td>
+                            <td><span class="incident-tag tag-critical">Критический</span></td>
+                        </tr>
+                        <tr>
+                            <td>18.01.2024</td>
+                            <td>SCP-2741 провел 6 актов регенерации в течение 48 часов во время массового инцидента в секторе "03-Чарли".</td>
+                            <td>Объект впал в кому на 72 часа. По пробуждении зафиксировано образование кластера из 5 наростов B-1 на правой ключице (0,3-0,7 см) и одного нароста под подбородком (0,4 см). Введено ограничение: не более 2 актов регенерации в неделю. Общая площадь кристаллических образований достигла <span class="data-expunged">██</span> см2.</td>
+                            <td><span class="incident-tag tag-critical">Критический</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">05</div>
+                <h2>Приложение - Замечания медицинской службы</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                    <div class="quote-block">
+                        "Физиологические показатели SCP-2741 находятся в пределах нормы. Однако при проведении гистологического анализа зафиксирована аномальная структура митохондрий - они содержат неидентифицированные органеллы, демонстрирующие способность к фотосинтезу-подобному процессу при контакте с поврежденными тканями.
+                        <br><br>
+                        Предположительно, именно это и является механизмом его аномалии. Каждый акт регенерации запускает каскад минерализации в тканях объекта: избыточные кальциево-фосфорные соединения, образующиеся в результате аномального метаболизма, кристаллизуются под кожей вместо естественного выведения. Мы наблюдаем своего рода "биологический обмен": здоровье пациента за кристаллический рост SCP-2741.
+                        <br><br>
+                        Кристаллы B-1 не поддаются механическому удалению и демонстрируют способность к медленному росту даже без новых актов регенерации. На текущий момент наросты покрывают менее 2% поверхности тела объекта, однако при сохранении текущей интенсивности использования аномалии к ████ году данный показатель может достичь 10%.
+                         <br><br>
+                        Рекомендуется продолжить молекулярно-биологические исследования под руководством д-ра Алекса Медицинова. Приоритетной задачей является разработка протокола замедления или остановки роста B-1 без нарушения регенерационных способностей объекта. Также рекомендуется разработать синтетический аналог ферментного комплекса FC-01 для снижения нагрузки на SCP-2741."
+                        <div class="quote-author">Д-р ███████, ведущий биохимик Зоны 03</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">06</div>
+                <h2>Приложение - Замечания службы безопасности</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                    <div class="quote-block">
+                        "SCP-2741 представляет собой уникальный актив для Зоны 03. Его присутствие в Исследовательском блоке "03-Чарли" существенно снижает летальность при инцидентах, связанных с физическими травмами и биологическими аномалиями. Большинство моих бойцов ему обязаны жизнью - и я не собираюсь забывать об этом. Однако необходимо учитывать критическое ограничение: каждый акт регенерации увеличивает массу кристаллических наростов B-1 на теле объекта.
+                        <br><br>
+                        По нашим расчетам, при текущей интенсивности использования кристаллические образования покроют приблизительно 10% поверхности тела SCP-2741 к ████ году. Долгосрочные последствия данного процесса неизвестны. Рекомендуется строгое соблюдение лимита: не более двух актов регенерации в неделю, за исключением чрезвычайных ситуаций с прямым разрешением директора Зоны или его заместителя.
+                        <br><br>
+                        Кроме того, ферментный комплекс FC-01, выделяемый объектом, представляет собой потенциальный объект исследования. Образцы крови и тканей SCP-2741, а также фрагменты B-1 должны храниться в условиях повышенной безопасности. Любые попытки несанкционированного взаимодействия с кристаллами объекта пресекаются немедленно."
+                        <div class="quote-author">Агент Энтони Фрейзер, заместитель директора по безопасности</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">07</div>
+                <h2>Приложение - Профиль</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="label">Полное имя</div>
+                        <div class="value">Аллан Блэйк</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Дата рождения</div>
+                        <div class="value">14 марта 1997 года</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Место рождения</div>
+                        <div class="value">███████, Аляска, США</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Образование</div>
+                        <div class="value">Среднее медицинское (фельдшер), ███████ колледж</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Дата захвата Фондом</div>
+                        <div class="value">7 ноября 2017 года</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Текущий статус</div>
+                        <div class="value highlight">Содержится / сотрудничает</div>
+                    </div>
+                </div>
+                    <p>SCP-2741 зарекомендовал себя как субъект с высоким уровнем самообладания в кризисных ситуациях и выраженной готовностью к самопожертвованию ради спасения других. Психологическое состояние стабильно, хотя наблюдается тенденция к эмоциональному выгоранию, связанная с осознанием ограниченности собственного биологического ресурса.</p>
+                    
+                    <p>Объект демонстрирует высокий уровень кооперативности и осознает риски, связанные с чрезмерным использованием аномалии. Рекомендуется регулярная психологическая поддержка и строгое ограничение количества актов регенерации в неделю. SCP-2741 выразил готовность к дальнейшему сотрудничеству с Фондом при условии соблюдения установленных протоколов безопасности.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">08</div>
+                <h2>Примечание директора Зоны 03</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="quote-block">
+                    "SCP-2741 - уникальный пример того, как аномалия может служить Фонду, а не только представлять угрозу. Его применение в секторе "03-Чарли" уже спасло жизни сотрудников. Однако я настоятельно рекомендую не забывать: он остается объектом. И любой объект может стать неуправляемым.
+                    <br><br>
+                    Наши исследования - шанс сохранить его способности без истощения самого субъекта. Если мы сможем синтезировать FC-01, это изменит подход Фонда к лечению аномальных травм. Но до тех пор - берегите SCP-2741."
+                    <div class="quote-author">[ДАННЫЕ ЗАСЕКРЕЧЕНЫ], Директор Зоны 03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">09</div>
+                <h2>Инцидент INC-TRM-2023</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p><strong>Дата:</strong> 14 сентября 2023 года<br>
+                <strong>Место:</strong> сектор 03-Чарли, Зона легкого содержания (Этаж -2)<br>
+                <strong>Статус:</strong> расследование закрыто</p>
+                
+                <p>14 сентября 2023 года агент ███████, находившийся под воздействием аномального объекта ████, попытался принудительно использовать SCP-2741 для самолечения. Агент применил служебный нож, причинив объекту множественные проникающие ранения в спину (2 раны глубиной до 8 см) и левое бедро (1 рана глубиной до 5 см).</p>
+                
+                <p>SCP-2741 был обнаружен в коридоре сектора спустя 6 минут после инцидента. Объект находился в сознании, сжимая раны ладонями и демонстрируя признаки глубокого шока. Собственная аномалия объекта запустила процесс регенерации поврежденных тканей. Агент ███████ был нейтрализован сотрудниками СБ при попытке вторичного нападения.</p>
+                
+                <div class="warning-box">
+                    <strong>Последствия:</strong> SCP-2741 полностью восстановлен за 47 минут. Однако в местах ранений образовались новые кристаллические наросты B-1, отличающиеся от всех предыдущих образований. Наросты имеют темный, почти черный цвет с фиолетовым отливом, повышенную плотность (превышающую стандартные образования в 2,3 раза) и демонстрируют ускоренный рост (0,3 мм в месяц против стандартных 0,1 мм). Объект испытывает периодические приступы острой боли в зонах черных наростов, длящиеся 15-40 секунд, без установленной закономерности. Обезболивающие средства оказывают минимальный эффект.
+                </div>
+            </div>
+        </div>
+       
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">10</div>
+                <h2>Инцидент LCB-2024</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p><strong>Дата:</strong> 17 июня 2024 года<br>
+                <strong>Место:</strong> сектор 03-Чарли, Зона тяжелого содержания (Этаж -1)<br>
+                <strong>Статус:</strong> расследование закрыто</p>
+                
+                <p>17 июня 2024 года в Зоне тяжелого содержания сектора "03-Чарли" произошло локальное нарушение условий содержания объекта класса Кетер ███. В ходе операции по восстановлению условий содержания пострадали 3 агента СБ и 1 научный сотрудник. Сержант Сандовал, командир звена быстрого реагирования, получил проникающее ранение брюшной полости и множественные осколочные повреждения правой ноги.</p>
+                
+                <p>Во время прогулки, SCP-2741 был эвакуирован из зоны инцидента агентами СБ, однако самостоятельно вернулся к месту происшествия, несмотря на прямой запрет. Объект провел экстренную регенерацию сержанта Сандовала и двух агентов СБ в течение 34 минут. Третий агент СБ скончался до прибытия SCP-2741.</p>
+                
+                <div class="quote-block">
+                    "Пока мы там сандали рвали, пытаясь заебашить эту проблядь, парень как ни в чем не бывало прошмыгнул мимо нас. Я ему ору - мол, уходи отсюда на хрен. А он такой, спокойный, смотрит мне в глаза и говорит: "Сержант, Ваш живот, я помогу". Я глянул вниз - а у меня кишки чуть не наружу, ебать! Я и не заметил, сука, адреналин же. А он просто ложит руки мне на живот, и я чувствую, как что-то внутри тянется, будто мурашки, только изнутри. Через минуту уже сижу, а рана затягивается прямо на глазах. Я и говорю ему: "Охуеть, ты мне жизнь спас!", А он молчит, просто встает и идет к следующему. Я уже только потом узнал, что у него за это кристаллы выросли. Так что, может, мы ему должны, а не он нам. Хотя, блять, не знаю, я просто благодарен ему."
+                    <div class="quote-author">Сержант Сандовал, агент службы безопасности Зоны 03, показания с камеры наблюдения сектора "03-Чарли"</div>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>Последствия:</strong> в ходе инцидента SCP-2741 провел 3 акта интенсивной регенерации. Образовано 2 новых кристаллических нароста B-1: один на правой стопе (1,4 см, мутно-белый) и один на левом запястье (0,7 см, с фиолетовым оттенком). Объект отказался от медицинского осмотра в течение 6 часов после инцидента, сославшись на "необходимость прийти в себя". По результатам принудительного осмотра зафиксировано ухудшение психологического состояния: SCP-2741 демонстрирует признаки посттравматического стресса, включая избегание обсуждения инцидента и повышенную раздражительность при упоминании объекта ███.
+                </div>
+            </div>
+        </div>
+
+        
+            <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">11</div>
+                <h2>Приложение - Интервью о происхождении аномалии</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p><strong>Дата проведения:</strong> 23 марта 2018 года<br>
+                <strong>Место:</strong> комната допросов сектора 03-Чарли<br>
+                <strong>Интервьюер:</strong> д-р Алекс Медицинов, заместитель директора по медицине<br>
+                <strong>Объект:</strong> SCP-2741 (Аллан Блэйк)<br>
+                <strong>Статус:</strong> протокол допроса по запросу Совета O5</p>
+
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">ПРОТОКОЛ ДОПРОСА No.ИНТ-2018-03</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Запись начата. Объект, вы понимаете, почему мы здесь?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Думаю, да. Вы хотите знать, откуда... это взялось.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Верно. Начните с начала. Самого начала.</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Хорошо. Было это... хм, когда? Четырнадцатый, вроде, год? Да, осень четырнадцатого. Я тогда еще в колледже учился, на третьем курсе фельдшерского. Сбежал на выходные из общаги - хотел побыть один, подышать воздухом. Поехал к реке Юкон, к тому месту, где отец раньше рыбачил.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Вы были там один?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Да. Стоял на краю, смотрел на воду. Лед уже лег, но тонкий был - первый. Я знал, что нельзя, но... не знаю, меня что-то тянуло. Словно кто-то шептал из-подо льда. Глупо звучит, но так и было.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Продолжайте.</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Я ступил на лед. Он треснул сразу, я провалился. Вода была... она была не холодной. То есть, я понимал, что должен замерзать, но тело не реагировало. Было темно, я пытался выплыть, но лед стал слишком толстым, или я слишком глубоко ушел. Не помню.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Как долго вы были под водой?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Не знаю. Часами? Я помню, что перестал бороться. Просто повис в воде, смотрел вверх, сквозь лед. А сверху был свет. Не солнце - что-то другое. Он был таким... зеленоватым.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Что произошло дальше?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Я увидел... что-то странное, очертания на дне. Они светились тем же зеленым. Скорее всего... ростки? Корни? Огромные, переплетенные, уходящие вниз, куда глаз не достает. И между ними - что-то двигалось. Нет, не рыбы. Что-то... длинное, полупрозрачное. Смотрело на меня.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Вы испытали страх?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Нет. Именно это меня пугает сейчас. Я должен был бояться, но был спокоен. Как будто... как будто меня пригласили. Одно из этих существ - не знаю, как их назвать - подплыло ближе. У него не было лица, только... узоры. Как на моих предплечьях, только живые. Пульсирующие.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Оно с вами контактировало?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Оно коснулось меня. Ладонью? Щупальцем? Я не видел конечностей - просто ощущение прикосновения. Холодное. И тогда... тогда я почувствовал, как что-то входит в меня. Только не поймите неправильно. В меня, в мои кости, в саму идею того, кем я являюсь...</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Вы потеряли сознание?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Да. Или нет. Следующее, что помню - я лежу на берегу, недалеко оттуда, где провалился. Лед целый, сухой. На мне нет ни капли воды. Солнце садится. Я думал, что мне приснилось. Но на левом боку, под ребрами, уже был этот шрам.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Вы вернулись к тому месту после этого?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Трижды. Первый раз - через неделю. Нашел точку, где провалился. Лед был толстым, метра два. Пробовал долбить - бесполезно. Второй раз - через месяц. То же самое. Третий раз - весной, когда лед пошел. Стоял на берегу и смотрел, как всплывает мусор, ветки, рыба. Ничего необычного. Никаких светящихся корней. Никаких существ без лица.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Когда вы впервые осознали изменения?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Через полгода. На стажировке в скорой. Коллега упал с лестницы, травма головы, кровь из ушей. Я положил руки ему на виски, пытался остановить кровь. И почувствовал... тепло. Не от себя, а из себя. Как будто что-то вытекало из меня в него. Через минуту он открыл глаза. Сказал, что ему лучше. Через час уже шутил. Врачи не могли объяснить - у него был линейный перелом височной кости, а через сутки на снимках - только затемнение.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Вы рассказали кому-то о той ночи?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Нет. Думал, что сошел с ума. Или что это был наркотический трип от переохлаждения. Но руки... руки знали. Когда я прикасался к больным, я чувствовал, где и что у них повреждено. Видел это, словно рентген. И мог исцелить. Не всегда - сначала только мелкие травмы. Порезы, ушибы. Потом сломанные кости. Потом внутренние кровотечения. Потом...</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Потом терминальные диагнозы?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Да. А эти кристаллы появились позже. Первый - после того, как вылечил ребенка с лейкемией. Его мать привела дитя и умоляла. Она плакала. Я положил руки ему на грудь. Через два часа анализы были чистыми. А на моем предплечье - точка, размером с горошину. Твердая. Холодная. С тех пор они растут с каждым тяжелым случаем.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Вы испытываете боль от кристаллов?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Постоянно. Не острую - тянущую. Как будто кожа слишком туго натянута над камнями. Иногда, ночью, я слышу... звук? Вибрацию? Исходящую от них. Словно они поют. Не знаю, это так глупо.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Вы хотите вернуться к тому месту?</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Нет. В этом нет смысла, говорю же, я уже приходил туда и ничего.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Хорошо. Благодарю, на этом мы закончим.</div>
+                        <div class="terminal-line"><span class="prompt">SCP-2741 ></span> Мгм.</div>
+                        <div class="terminal-line"><span class="prompt">АГЕНТ ██████ ></span> Интервью завершено. 23 марта 2018 года, 14:47.</div>
+                    </div>
+                </div>
+
+                <div class="notice-box">
+                    <div class="notice-title">Примечание интервьюера</div>
+                    <p>SCP-2741 демонстрирует полную готовность к сотрудничеству, однако гипотеза о подводной аномалии в районе озера Юкон требует проверки. Рекомендуется направить разведывательную группу для батиметрического обследования указанного участка.</p>
+                    <p>Особое внимание следует уделить описанным объектом "светящимся корням" и "существам без лица".</p>
+                    </div>
+
+                <div class="warning-box">
+                    <strong>Дополнение от 15 апреля 2018:</strong> разведывательная группа, направленная к координатам, указанным SCP-2741, не обнаружила аномальных объектов на дне озера Юкон в указанном секторе. Батиметрическое сканирование показало стандартный рельеф дна, осадочные породы, типичную флору и фауну. Однако агент ████████ сообщил о "временном провале" в памяти на 4 минуты 17 секунд при погружении на глубину 12 метров. По возвращении агент не мог объяснить, почему его оборудование зафиксировало резкий скачок температуры воды с 2-C до 18-C в точке, где он находился. Данные с датчиков были изъяты. Обследование приостановлено до дальнейших указаний Совета O5.
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">12</div>
+                <h2>Приложение - Решение Совета O5</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <div class="clearance-banner">
+                    УРОВЕНЬ ДОПУСКА 4 - СОВЕРШЕННО СЕКРЕТНО
+                </div>
+
+                <p><strong>Дата заседания:</strong> 12 февраля 2018 года<br>
+                <strong>Место проведения:</strong> зал заседаний Совета O5, Зона 01<br>
+                <strong>Повестка:</strong> определение статуса объекта USAKUK-Site-03/████-A. Классификация. Условия содержания и эксплуатации.</p>
+
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">ПРОТОКОЛ ЗАСЕДАНИЯ O5-██-2018</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Итак. Объект обнаружен, доставлен, обследован. Предлагаю приступить к голосованию. Содержание в режиме ограниченного сотрудничества. Возражения?</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Есть. Я возражаю. Мы имеем дело с биологической аномалией неустановленного происхождения, способной к ускоренной регенерации чужеродных тканей. Ограниченное сотрудничество - ошибка.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Обоснуй.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Объект непредсказуем. Его аномалия активируется при контакте. Мы не знаем механизма, не контролируем процесс, не понимаем долгосрочных последствий. Сегодня он лечит наших агентов - завтра он может стать вектором заражения. Или хуже.</div>
+                        <div class="terminal-line"><span class="prompt">O5-11 ></span> Согласен с коллегой. Фонд не должен полагаться на непроверенные аномалии. У нас есть SCP-500 для экстренных случаев. Зачем нам еще один объект с непредсказуемыми свойствами?</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> SCP-500 ограничен пятьюдесятью таблетками, и мы оба знаем, сколько их осталось. SCP-2741 - возобновляемый ресурс.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Возобновляемый? Каждый акт регенерации вызывает кристаллизацию его собственных тканей. Мы не знаем, что произойдет, когда кристаллы покроют критическую массу тела. Объект может погибнуть. Или трансформироваться. Или стать чем-то совершенно другим. Мы не знаем. И не зная - не можем рисковать.</div>
+                        <div class="terminal-line"><span class="prompt">O5-9 ></span> Если позволите. Я прочитал медицинское заключение. Регенерация - контролируемый процесс. Объект осознает свои способности, может управлять ими. Это не SCP-049, который действует по непостижимой логике. Это человек, который хочет помогать. И помогает.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Хочет помогать. Сегодня. А завтра? Мы все видели, что происходит с объектами, которые "хотят помогать". SCP-073 тоже хотел помогать. Посмотрите, к чему это привело.</div>
+                        <div class="terminal-line"><span class="prompt">O5-5 ></span> Неуместное сравнение. SCP-073 - совершенно другой класс аномалии. 2741 - гуманоид с биологической мутацией. Он не бессмертен, не всесилен, не обладает когнитивными угрозами. Его единственная опасность - непредсказуемость долгосрочных эффектов.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Что и требует изоляции. Поместить его в стандартную камеру содержания, проводить исследования в контролируемых условиях. Никакого сотрудничества. Никакого доступа к персоналу.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> И что мы получим? Еще один объект в камере, который мы будем изучать десятилетиями без практического применения. У нас уже есть сотни таких. А SCP-2741 может спасать жизни прямо сейчас.</div>
+                        <div class="terminal-line"><span class="prompt">O5-11 ></span> Жизни агентов СБ. Которые сами пошли на риск, подписав контракт. Мы не обязаны ставить под угрозу безопасность Фонда ради спасения каждого рядового.</div>
+                        <div class="terminal-line"><span class="prompt">O5-9 ></span> С уважением, коллега, но это звучит как оправдание. Мы теряем десятки агентов ежегодно из-за аномальных травм, которые 2741 мог бы вылечить. SCP-500 мы бережем для катастроф. А 2741 - для оперативной медпомощи. Это разные ниши.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Ниши. Хорошо. А что, если его похитят? ГОК? Повстанцы? Объект с такими способностями - мишень номер один для любой группы интересов. И если они его получат - мы потеряем не только актив, но и получим врага с возможностью массового лечения своих сил.</div>
+                        <div class="terminal-line"><span class="prompt">O5-5 ></span> Это аргумент за усиленную охрану, а не за изоляцию. Согласен с O5-7 в части риска похищения. Предлагаю: содержание в изолированном секторе, усиленная охрана, ограничение контактов. Но не полная изоляция.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Уже предусмотрено. Зона 03 готова выделить отдельный сектор, камеру содержания, совмещенную с медблоком. Двухфакторная идентификация, постоянное наблюдение, сопровождение агентами СБ при любых перемещениях.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Это не решает проблему кристаллизации. Мы не знаем, что произойдет при достижении критической массы. Объект может стать нестабильным. Или агрессивным. Или...</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Или ничего не произойдет. Или мы синтезируем FC-01 до того, как кристаллы достигнут критической массы. Или мы найдем способ остановить их рост. Мы не знаем. Но мы точно не узнаем, если запрем его в камеру и будем ждать.</div>
+                        <div class="terminal-line"><span class="prompt">O5-9 ></span> Еще один момент. Объект - доброволец. Он согласился на сотрудничество. Если мы его изолируем, мы нарушим доверие. И потеряем не только актив, но и потенциальный источник информации о его собственной аномалии. Никто не знает его тело лучше, чем он сам.</div>
+                        <div class="terminal-line"><span class="prompt">O5-11 ></span> Доверие. Трогательно. Мы Фонд, а не благотворительная организация.</div>
+                        <div class="terminal-line"><span class="prompt">O5-5 ></span> И все же. Комитет по этике. Они уже выразили обеспокоенность. Изоляция добровольца без веских оснований - нарушение наших же протоколов. 2741 не демонстрировал агрессии, не пытался сбежать, не скрывал информацию. Единственная его "вина" - аномальность, которую он не выбирал.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Комитет. Конечно. Давайте спросим у них, что делать, если объект трансформируется и уничтожит половину Зоны.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Давайте не будем апеллировать к гипотетическим сценариям. У нас есть факты. Факт: аномалия контролируема. Факт: объект лоялен. Факт: его применение снижает летальность на 34% в секторе 03-Чарли. Факт: кристаллизация медленная и, вероятно, обратима при синтезе FC-01. Я предлагаю принять решение: ограниченное сотрудничество под строгим контролем Совета и Совета этики.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> Комитет по этике. Вы серьезно?</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Абсолютно. Комитет будет контролировать условия содержания, ограничивать интенсивность использования аномалии и защищать права объекта. Совет O5 - военно-оперативный контроль и протоколы безопасности. Двойной надзор. Ни одно решение о применении SCP-2741 не будет принято без согласования обеих сторон.</div>
+                        <div class="terminal-line"><span class="prompt">O5-9 ></span> Разумный компромисс. Поддерживаю.</div>
+                        <div class="terminal-line"><span class="prompt">O5-5 ></span> Поддерживаю. Условие: ежеквартальные отчеты о состоянии объекта. При ускорении кристаллизации - немедленное пересмотрение статуса.</div>
+                        <div class="terminal-line"><span class="prompt">O5-11 ></span> Воздержусь. Не убежден, но не буду блокировать.</div>
+                        <div class="terminal-line"><span class="prompt">O5-7 ></span> ...Хорошо. При условии, что Комитет по этике будет иметь право вето на любое решение, связанное с применением объекта. И что при достижении 10% кристаллизации статус будет автоматически пересмотрен. И что объект никогда, слышите, никогда не покинет пределы Зоны 03 без прямого разрешения Совета O5 в полном составе. Только при этих условиях - поддерживаю.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Принято. Условия O5-7 вносятся в протокол. Голосование: ограниченное сотрудничество объекта USAKUK-Site-03/████-A под двойным контролем Совета O5 и Совета этики. Кто за?</div>
+                        <div class="terminal-line"><span class="prompt">[СИСТЕМА] ></span> O5-3: ЗА. O5-5: ЗА. O5-7: ЗА (с условиями). O5-9: ЗА. O5-11: ВОЗДЕРЖАЛСЯ. Остальные члены: голосование по защищенному каналу. Итог: РЕШЕНИЕ ПРИНЯТО.</div>
+                        <div class="terminal-line"><span class="prompt">O5-3 ></span> Объект SCP-2741. Класс: Евклид. Статус: ограниченное сотрудничество. Условия: изолированное содержание в секторе 03-Чарли, двойной контроль Совета O5 и Совета этики, ограничение актов регенерации, ежеквартальные отчеты, автоматический пересмотр статуса при 10% кристаллизации. Протокол закрыт.</div>
+                    </div>
+                </div>
+                    <div class="addendum-title">Постановление Комитета по этике</div>
+                    <div class="quote-block">
+                        "Комитет одобряет решение об ограниченном сотрудничестве с объектом SCP-2741 при соблюдении следующих условий:
+                        <br><br>
+                        1. Объект не может быть использован в качестве одноразового ресурса. Каждый акт регенерации должен быть обоснован медицинской необходимостью и санкционирован не ниже заместителя директора по медицине.
+                        <br><br>
+                        2. Объект имеет право на отказ. Никакое принуждение к активации аномалии не допускается. Любое принудительное применение будет расцениваться как нарушение прав гуманоида и преследоваться по всей строгости протоколов Фонда.
+                        <br><br>
+                        3. Объект имеет право на психологическую поддержку, медицинское обслуживание и социальную адаптацию. Его статус как субъекта содержания не отменяет его статуса как человека.
+                        <br><br>
+                        4. При достижении 10% кристаллизации тела Комитет по этике инициирует экстренное заседание с целью пересмотра условий содержания. Приоритет: сохранение жизни и здоровья объекта.
+                        <br><br>
+                        5. Любые исследования, связанные с извлечением образцов тканей, крови или кристаллов B-1, проводятся только с письменного согласия объекта и под наблюдением представителя Комитета по этике.
+                        <br><br>
+                        Комитет по этике будет осуществлять постоянный мониторинг условий содержания объекта и готов вмешаться в случае нарушения вышеуказанных положений."
+                        <div class="quote-author">Председатель Комитета по Этике, Зона 01</div>
+                    </div>
+                    <div class="warning-box">
+                    <strong>Примечание для персонала с уровнем допуска 4:</strong> решение Совета O5 и постановление Комитета по этике являются обязательными для исполнения всеми сотрудниками Зоны 03. Любое нарушение условий содержания объекта USAKUK-Site-03/████-A, включая несанкционированное принуждение к активации аномалии, попытку извлечения образцов без согласия или угрозу физической расправы, карается немедленным отстранением от должности и передачей в распоряжение Отдела внутренней безопасности. Объект находится под защитой Совета O5. Забудьте об этом - на свой страх и риск.
+                </div>
+            </div>
+        </div>
+
+                </div>
+                <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="icon">13</div>
+                <h2>Приложение - FC-01</h2>
+                <span class="toggle">v</span>
+            </div>
+            <div class="section-body">
+                <p><strong>Дата инициации:</strong> 12 января 2025 года<br>
+                <strong>Кодовое название:</strong> FC-01 "Корни"<br>
+                <strong>Руководитель проекта:</strong> Энтони Гибсон, заместитель директора по исследованиям Зоны 03<br>
+                <strong>Наблюдение:</strong> Совет O5, Комитет по этике<br>
+                <strong>Статус:</strong> фаза альфа - предварительные исследования</p>
+
+                <p>В январе 2025 года по инициативе заместителя директора по исследованиям Энтони Гибсона запущен проект по изучению и потенциальной репликации аномальных свойств SCP-2741. Объект выразил готовность к активному сотрудничеству при условии сохранения контроля над собственным телом и правом вето на любую процедуру.</p>
+
+                <div class="notice-box">
+                    <div class="notice-title">Цели проекта:</div>
+                    <ul>
+                        <li>извлечение и стабилизация ферментного комплекса FC-01 вне организма объекта;</li>
+                        <li>разработка протокола замедления или остановки роста кристаллов B-1 без нарушения регенерационных способностей;</li>
+                        <li>синтез искусственного аналога FC-01 для применения в полевых условиях без привлечения SCP-2741.</li>
+                    </ul>
+                </div>
+
+                <p><strong>Текущий прогресс:</strong> на данный момент проект находится на самом раннем этапе. Исследовательская группа под руководством Гибсона завершила серию контролируемых биопсий поверхностных слоев наростов B-1 с правого предплечья объекта. Полученные образцы поддерживаются in vitro в условиях, максимально приближенных к физиологическим. Начаты предварительные попытки культивирования клеточной линии на основе эпителия, содержащего FC-01.</p>
+
+                <p>SCP-2741 участвует в проекте в качестве консультанта и донора биоматериала. Объект проявляет заинтересованность в результатах исследования, связывая персональную мотивацию с возможностью замедления собственной кристаллизации.</p>
+
+                <div class="warning-box">
+                    <strong>Ограничения фазы альфа:</strong> все процедуры проводятся исключительно под личным наблюдением Энтони Гибсона с параллельным мониторингом со стороны Совета O5 и Комитета по этике. Любое расширение протокола, включая глубокую биопсию, извлечение костных образцов или эксперименты с принудительной активацией аномалии, требует письменного согласия SCP-2741, утверждения Совета O5 и вето Комитета по этике. На текущий момент синтетический аналог FC-01 не создан. Прогнозируемый срок перехода к фазе бета - не ранее ████ года.
+                </div>
+
+                <div class="quote-block">
+                    "Мы стоим у черты, за которой либо научимся копировать чудо, либо поймем, что копировать его невозможно. Блэйк дает нам шанс. Я не собираюсь упускать этот шанс. Но и торопить события также не стану. Спешка убивает точность, а точность - единственное, что у нас есть."
+                    <div class="quote-author">Энтони Гибсон, заместитель директора по исследованиям Зоны 03, отчет за январь 2025</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="scp-footer">
+        <div class="footer-line">ФОНД SCP - АЛЯСКИНСКОЕ УЧРЕЖДЕНИЕ ИССЛЕДОВАНИЯ, СОДЕРЖАНИЯ И РАЗРАБОТОК</div>
+        <div class="footer-line">Идентификационный код: USAKUK-Site-03 | Расположение: вблизи реки Юкон, Юкон-Коюкук, штат Аляска, США</div>
+        <div class="footer-line">Прикрытие: ГНИИ "Медицинская гидробиология Юкон" при компании "Sustainable Chemical Products"</div>
+    </footer>
+
+    <script>
+        function toggleSection(header) {
+            const body = header.nextElementSibling;
+            const toggle = header.querySelector('.toggle');
+            
+            if (body.classList.contains('collapsed')) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+                toggle.textContent = 'v';
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+                toggle.textContent = '>';
+            }
+        }
+        
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const banner = document.querySelector('.security-banner');
+            banner.style.transform = 'translateY(' + (scrolled * 0.1) + 'px)';
+        });
+    </script>
+
+</body>
+</html>
